@@ -1,0 +1,43 @@
+Fluxo Atual:
+
+1- "ConsoleApp" Instancia um "FileLoader"
+	Pode receber o nome do arquivo por argumento externo.
+
+2- "ConsoleApp" Instancia um "Core" vazio e entrega para o "FileLoader"
+
+3- "ConsoleAPP" da .load() no "FileLoader".
+
+3.1- "FileLoader" executa .loadSimulationParameters(), instanciando um "SimulationParameters" dentro do "Core".
+3.2- "FileLoader" executa .loadProfiles(), Carregando o ArrayList dentro "Core" com os Profiles.
+
+4- "Core possui o necessário para auto-iniciar.
+
+5- "ConsoleApp" da .init() no core.
+5.1- "Core" cria e inicializa o grid com os parametros necessários.
+5.2- "Core" cria e inicializa os Vehicles, com seus respectivos perfis e FDPProviders, obedecendo a ocorrencia dos perfis e a primeira densidade da pista.
+5.3- "Core" entrega os vehicles para o grid que seta a condição inicial.
+5.4- "Core cria o "Model" a ser usado usando o "ModelFactory" de acordo com os parametros definidos.
+
+6- "ConsoleApp" da .run() no "Core".
+6.1- Descrição Geral do .run()
+	Para cada densidade setada
+		Seta condição inicial
+		.iterare() "SimulationTime" vezes
+		Invoca o Sensor e o Logger a cada "StatisticTime" apos passar o "DiscardTime"
+6.2- Descrição geral do .iterate()
+	Para cada "Vehicle"
+		Entrega o "Vehicle" para o .apply() do model definido.
+	fim
+	Após todos os vehicles receberem suas novas posições.
+	Aplica o .update.
+
+6.3- Descrição geral do .update()
+	Limpa o grid que guarda onde os carros estão (Loga antes uma foto da pista)
+	Do final do array de carros ate op inicio vai preenchendo as posições do grid com o a id do carro que esta la.
+	começa com a ponta do carro e coloca o ID dele (-size) vezes para tras.
+	Caso exista colisão ele aborta e avisa onde ocorreu.
+
+6- Ao final do run, todas as densidades foram simuladas, logs foram guardados.
+
+
+ 	

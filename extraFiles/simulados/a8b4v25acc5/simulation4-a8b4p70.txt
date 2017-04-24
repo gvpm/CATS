@@ -1,0 +1,45 @@
+//---------------------------------------------------
+//-----------------Simulation Parameters-------------
+//---------------------------------------------------
+//- Model Values (nasch,naschWithBeta)
+//- PictureLog Value (0 will not log, 1 will log)
+//---------------------------------------------------
+SPEEDLIMIT:25
+PROBP:70
+SIMULATIONTIME:15000
+DISCARDTIME:10000
+STATISTICTIME:121
+INITIALDENSITY:0.01
+DELTADENSITY:0.01
+FINALDENSITY:0.99
+CELLSINX:10000
+CELLSINY:1
+CELLSIZE:1.5
+DEFAULTCARSIZE:7.5
+MODEL:naschWithBeta
+//MODEL:tuff
+LOGNAME:a8b4p70
+PICTURELOG:0
+ENDOFPARAMETERS
+//---------------------------------------------------
+//---------------------Profiles----------------------
+//---------------------------------------------------
+//- FDPProvider Values (uniform,beta)
+//- Copy all the Profile Parameters for a new Profile
+//- Sum of all PERCENTAGEOCCURRENCE must be 1
+//---------------------------------------------------
+FDPPROVIDER:beta
+NAME:NaschBasic
+SIZE:5
+VELMAX:25
+AHEAD:0
+SAFEDISTANCE:0
+VELINCREMENT:5
+PERCENTAGEOCCURRENCE:1
+ALPHAACC:8
+BETAACC:4
+ALPHAANT:8
+BETAANT:4
+ENDOFPROFILE
+
+
