@@ -139,7 +139,7 @@ public class Profile {
     @Override
     public String toString() {
 
-        return getName() + " Occurrence: " + getPercentageOccurrence() + " Size: " + getSize() + " FDPProvider: " + this.getFdpProvider().toString();
+        return getName() + " Occurrence: " + getPercentageOccurrence() + " Size: " + getSize() + " FDPProvider: " + this.getFdpProvider().toString() + "\nBeta Values: aAcc = "+this.getAlphaAcc()+ " bAcc = "+this.getBetaAcc()+ "  aAnt = "+this.getAlphaAnt()+" bAnt = "+this.getBetaAnt();
     }
 
 }

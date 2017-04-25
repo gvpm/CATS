@@ -5,6 +5,7 @@ import cats.tools.FileLoader;
 import cats.tools.MessageConsole;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The console way to run the simulation.
@@ -16,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 public class ConsoleAppLoader {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException, IOException {
-        boolean GUI = false;
+        boolean GUI = true;
 
         FileLoader fileLoader;
 
@@ -48,8 +49,14 @@ public class ConsoleAppLoader {
          }
 
         core.init();
-
+        
+        long startTime = System.currentTimeMillis();
         core.simulateAllDensities();
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        long secondsTotal = elapsedTime/1000;
+        long minutes = secondsTotal/60;
+        long secondsRest = secondsTotal % 60;
+        System.out.println("Total Simulation Time: "+ minutes+" minutes and "+secondsRest+" seconds.");
 
     }
 
