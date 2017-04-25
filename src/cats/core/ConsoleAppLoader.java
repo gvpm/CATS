@@ -38,6 +38,11 @@ public class ConsoleAppLoader {
         fileLoader.load();
 
         Core core = fileLoader.getCore();
+        
+        //Override of the log name if a second parameter is passed.
+         if (args.length == 2){
+             core.getParameters().setLogName(args[1]);
+         }
 
         core.init();
 

@@ -19,15 +19,15 @@ This is a Netbeans project.
   It will simulate the dentities 0.05, 0.06, 0.07 ... 0.50, 0.51, 0.52 ... 0.89, 0.90
 
 ## Running the Simulation.
-If you just want to run the simulation you only need the files from **TUFFEngineRun** folder.
+If you just want to run the simulation you only need the files from **CATSRun** folder.
 There you will find 2 files:
-- The "TUFFEngine.jar": The program itself.
+- The "CAT.jar": The program itself.
 - The "simulation.txt": The default configuration file.
   A file on this model is required to run the simulation.
   
 There are 2 ways of running the simulation.
 - #### Using the simulation GUI
-  To use the simulation GUI you simply need to click on the "TUFFEngine.jar" file, a window will open and the simulation will run with the parameters set on the 'simulation.txt' file that should be in the same folder.
+  To use the simulation GUI you simply need to click on the "CATS.jar" file, a window will open and the simulation will run with the parameters set on the 'simulation.txt' file that should be in the same folder.
   
 - #### Via prompt:
 
@@ -38,9 +38,13 @@ There are 2 ways of running the simulation.
    
    After that, use the following command to run the simulation.
    
-   `java -jar TUFFEngine.jar 'yourConfigFileName.txt'`
+   `java -jar CATS.jar yourConfigFileName.txt`
    
    The file you pick should be in the same folder.
+
+   You can override the output file name set in the configuration file by sending a second parameter,like this:
+
+    `java -jar CATS.jar yourConfigFileName.txt outputname`
 
 
 ## The Output.
