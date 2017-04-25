@@ -1,5 +1,8 @@
 package cats.core;
 
+import cats.fdps.FDPProviderFactory;
+import cats.fdps.FDPProvider;
+
 /**
  * Responsible to store all the profiles information. Core will have an
  * arrayList of profiles.

@@ -1,4 +1,4 @@
-package cats.core;
+package cats.models;
 
 /**
  * Responsible to instantiate a model according to a given number or string.

@@ -1,4 +1,4 @@
-package cats.core;
+package cats.loggers;
 
 import java.io.FileWriter;
 import java.io.IOException;

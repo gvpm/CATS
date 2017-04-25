@@ -1,4 +1,4 @@
-package cats.core;
+package cats.fdps;
 
 import java.util.Random;
 

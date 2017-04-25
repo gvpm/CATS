@@ -1,4 +1,4 @@
-package cats.core;
+package cats.tools;
 
 import java.io.*;
 import java.awt.*;

@@ -1,4 +1,6 @@
-package cats.core;
+package cats.tools;
+
+import cats.core.Core;
 
 /**
  * Responsible to provide the calculated data from the core, to be logged.

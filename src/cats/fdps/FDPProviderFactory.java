@@ -1,4 +1,4 @@
-package cats.core;
+package cats.fdps;
 
 /**
  * Responsible to instantiate a FDP Provider according to a given number or

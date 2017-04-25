@@ -1,5 +1,7 @@
-package cats.core;
+package cats.interfaces;
 
+import cats.core.Core;
+import cats.core.SimulationParameters;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JTextArea;
 

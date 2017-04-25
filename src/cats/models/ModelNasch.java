@@ -1,4 +1,7 @@
-package cats.core;
+package cats.models;
+
+import cats.core.Grid;
+import cats.core.Vehicle;
 
 /**
  * Implements the Nasch Model

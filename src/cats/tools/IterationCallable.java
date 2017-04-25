@@ -1,5 +1,6 @@
-package cats.core;
+package cats.tools;
 
+import cats.core.Core;
 import java.util.concurrent.Callable;
 
 /**

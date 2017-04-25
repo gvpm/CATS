@@ -1,4 +1,6 @@
-package cats.core;
+package cats.models;
+
+import cats.core.Vehicle;
 
 /**
  * Abstract model class, all models should implement this. It contains the

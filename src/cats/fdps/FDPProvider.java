@@ -1,4 +1,4 @@
-package cats.core;
+package cats.fdps;
 
 /**
  * Abstract FDP Provider class, all FDP Providers should implement this.

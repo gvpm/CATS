@@ -1,5 +1,8 @@
-package cats.core;
+package cats.interfaces;
 
+import cats.core.Core;
+import cats.tools.FileLoader;
+import cats.tools.MessageConsole;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
@@ -13,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 public class ConsoleAppLoader {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException, IOException {
-        boolean GUI = true;
+        boolean GUI = false;
 
         FileLoader fileLoader;
 
