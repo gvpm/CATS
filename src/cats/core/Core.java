@@ -317,7 +317,12 @@ public class Core {
 
         //set the cars neighbours
         setNeighbours();
-        grid.placeVehiclesOnGrid(vehicles);
+        
+        //THIS ONE WORKS FOR ALL PROFILES
+        //grid.placeVehiclesOnGrid(vehicles);
+        
+        //THIS ONLY WORKS FOR ONE PROFILE
+        grid.placeVehiclesOnGridSeparate1Profile(vehicles);
 
         //grid.printGrid();
     }

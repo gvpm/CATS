@@ -45,7 +45,7 @@ public class TXTtoImage {
             System.out.println(w + "" + h);
 
             int type = BufferedImage.TYPE_INT_ARGB;
-            File f = new File("MyFile.png");
+            File f = new File("MyFile2.png");
 
             BufferedImage image = new BufferedImage(w, h, type);
 

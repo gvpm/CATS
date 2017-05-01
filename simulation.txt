@@ -19,7 +19,7 @@ DEFAULTCARSIZE:7.5
 MODEL:naschWithBeta
 //MODEL:tuff
 LOGNAME:plotar
-PICTURELOG:0
+PICTURELOG:1
 ENDOFPARAMETERS
 //---------------------------------------------------
 //---------------------Profiles----------------------
