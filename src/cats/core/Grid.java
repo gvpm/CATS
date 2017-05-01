@@ -62,17 +62,21 @@ public class Grid {
         clear();
         for (int i = vehicles.size() - 1; i >= 0; i--) {
             Vehicle v = vehicles.get(i);
+            //The tip of the vehicle
             int position = v.getNewGridXPosition();
-
+            //Will loop the vehicle size
+            //It will occupy the grid as many times the vehicle size
             for (int j = 0; j < v.getSize(); j++) {
 
                 if (getFromPosition(position) != -1) {
+                    //case of conflict
                     throw new UnsupportedOperationException("Conflict between car " + getFromPosition(position) + " and " + v.getId());
 
                 } else {
                     grid[position] = v.getId();
+                    //The position to put the vehicle will be the one in the back in the grid
                     position = getPreviousXPosition(position);
-                    //case of conflict
+                    
                 }
 
             }

@@ -271,13 +271,13 @@ public class Core {
         vehicles.clear();
         //clears the gris positions
         grid.init();
-        //rounds up densiti to 2 decimal cases
+        //rounds up density to 2 decimal cases
         float roundD = (float) (Math.round(d * 100.0) / 100.0);
         //number of cells that will be occupied in this density
         int occupiedCells = (int) (parameters.getCellsInX() * roundD);
         System.out.println("\n-----------------------------------------------------------------------------------------");
         System.out.println("Density: " + roundD + " Occupied Cells: " + occupiedCells + " out of " + parameters.getCellsInX());
-        //will store here the numberof cars in this density or each profile
+        //will store here the number of cars in this density or each profile
         int[] nOfProfileCars = new int[profiles.size()];
         int totalCarsToInit = 0;
         //will loop in each profile type
@@ -293,15 +293,19 @@ public class Core {
 
         }
         //Creates cars mixing the profiles
+        //this is to give the unique id to teh cars
         int idCount = 0;
         //stops when there is the total numbers of cars for each profile
         while (vehicles.size() < totalCarsToInit) {
             Random rand = new Random();
+            //choses one profile to give the car this time
             int p = rand.nextInt(profiles.size());
-
+            //if there are still cars left to put of this profile it creates a car
             if (nOfProfileCars[p] > 0) {
                 vehicles.add(new Vehicle(grid, this, profiles.get(p), idCount));
+                //one less car of that profile to be put
                 nOfProfileCars[p]--;
+                //add up the id count
                 idCount++;
 
             }

@@ -47,11 +47,14 @@ public class ConsoleAppLoader {
          if (args.length == 2){
              core.getParameters().setLogName(args[1]);
          }
-
+        //Initial setup
         core.init();
         
+        //The initial time
         long startTime = System.currentTimeMillis();
+        //The entire simulation
         core.simulateAllDensities();
+        //Calculates and prints the elapsed time
         long elapsedTime = System.currentTimeMillis() - startTime;
         long secondsTotal = elapsedTime/1000;
         long minutes = secondsTotal/60;
