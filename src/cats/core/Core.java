@@ -250,6 +250,7 @@ public class Core {
      * next iteration.
      */
     public void update() {
+        
         grid.updateVehiclesOnGrid(vehicles);
         for (int i = 0; i < vehicles.size(); i++) {
             vehicles.get(i).updateInfo();
