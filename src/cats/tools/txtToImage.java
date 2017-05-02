@@ -13,10 +13,10 @@ import javax.imageio.ImageIO;
  *
  * @author gvpm
  */
-public class TXTtoImage {
+public class txtToImage {
     String fileName;
 
-    public TXTtoImage(String fileName) {
+    public txtToImage(String fileName) {
         this.fileName=fileName;
         
     }

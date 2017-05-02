@@ -1,6 +1,6 @@
 package cats.loggers;
 
-import cats.tools.TXTtoImage;
+import cats.tools.txtToImage;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,7 +52,7 @@ public class PictureLogger {
     }
     
     public void convertToImage(){
-        TXTtoImage converter = new TXTtoImage(fileName);
+        txtToImage converter = new txtToImage(fileName);
         converter.convert();
         
     }

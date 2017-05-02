@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class ConsoleAppLoader {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException, IOException {
-        boolean GUI = false;
+        boolean GUI = true;
 
         FileLoader fileLoader;
 
