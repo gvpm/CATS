@@ -83,6 +83,7 @@ public class txtToImage {
             }
 
             ImageIO.write(image, "PNG", f);
+            System.out.println("Arquivo "+fileName +  ".png Criado."); 
 
         } catch (IOException e) {
 

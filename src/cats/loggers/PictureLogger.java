@@ -1,6 +1,7 @@
 package cats.loggers;
 
 import cats.tools.txtToImage;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,12 +49,24 @@ public class PictureLogger {
 
     public void closeLogger() {
         gravarArq.close();
+        System.out.println("\nArquivo "+fileName +  ".txt Criado."); 
+        
 
     }
     
+    public void deleteLog(){
+        File file = new File(fileName+".txt");
+        if(file.delete()){
+            System.out.println("Arquivo "+fileName +  ".txt Deletado."); 
+        }
+        
+    }
+    
     public void convertToImage(){
+        System.out.println("Criando "+fileName +  ".png ..."); 
         txtToImage converter = new txtToImage(fileName);
         converter.convert();
+        
         
     }
 

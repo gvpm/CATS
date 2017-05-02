@@ -175,6 +175,8 @@ public class Core {
         if (parameters.getPictureLog() == 1) {
             picLogger.closeLogger();
             picLogger.convertToImage();
+            //Deletes the big file
+            picLogger.deleteLog();
             
         }
 //-------------------------------------------------------------        
