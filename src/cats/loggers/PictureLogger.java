@@ -1,5 +1,6 @@
 package cats.loggers;
 
+import cats.tools.TXTtoImage;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,6 +49,12 @@ public class PictureLogger {
     public void closeLogger() {
         gravarArq.close();
 
+    }
+    
+    public void convertToImage(){
+        TXTtoImage converter = new TXTtoImage(fileName);
+        converter.convert();
+        
     }
 
     public float getDensity() {

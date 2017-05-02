@@ -118,7 +118,7 @@ public class Core {
         setInitialCondition(d);
         //Rounds the density 
         float roundD = (float) (Math.round(d * 100.0) / 100.0);
-        String fileName = "" + roundD;
+        String fileName = parameters.getLogName()+"-d" + roundD;
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
 //------------------------------------------------------------- 
@@ -171,9 +171,11 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
 //-------------------------------------------------------------         
-        //Closes the picture logger
+        //Closes the picture logger and converts to image
         if (parameters.getPictureLog() == 1) {
             picLogger.closeLogger();
+            picLogger.convertToImage();
+            
         }
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
