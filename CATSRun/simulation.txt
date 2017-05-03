@@ -24,7 +24,7 @@ DEFAULTCARSIZE:7.5
 MODEL:nasch
 //MODEL:tuff
 LOGNAME:naschp30
-PICTURELOG:
+PICTURELOG:0
 ENDOFPARAMETERS
 //-----------------------------------------------------
 //---------------------Profiles------------------------
