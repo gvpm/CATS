@@ -118,12 +118,16 @@ public class Core {
         setInitialCondition(d);
         //Rounds the density 
         float roundD = (float) (Math.round(d * 100.0) / 100.0);
+        String roundDString = ""+roundD;
+        
         String fileName = parameters.getLogName()+"-d" + roundD;
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
 //------------------------------------------------------------- 
+        
         //Creates a picture log for that density
-        if (parameters.getPictureLog() == 1) {
+        //if (parameters.getPictureLog() == 1) {
+        if (parameters.getPictureLog().contains(roundDString)) {
             picLogger = new PictureLogger(fileName, roundD);
         }
 //-------------------------------------------------------------        
@@ -143,7 +147,8 @@ public class Core {
 //---------------PICTURE LOG RELATED---------------------------
 //-------------------------------------------------------------             
             //Logs a line on pictureLogger
-            if (parameters.getPictureLog() == 1) {
+            //if (parameters.getPictureLog() == 1) {
+            if (parameters.getPictureLog().contains(roundDString)) {
                 picLogger.logALine(grid.getGrid());
             }
 //-------------------------------------------------------------        
@@ -172,7 +177,8 @@ public class Core {
 //---------------PICTURE LOG RELATED---------------------------
 //-------------------------------------------------------------         
         //Closes the picture logger and converts to image
-        if (parameters.getPictureLog() == 1) {
+        //if (parameters.getPictureLog() == 1) {
+        if (parameters.getPictureLog().contains(roundDString)) {
             picLogger.closeLogger();
             picLogger.convertToImage();
             //Deletes the big file

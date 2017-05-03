@@ -1,6 +1,6 @@
 package cats.loggers;
 
-import cats.tools.txtToImage;
+import cats.tools.TxtToImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -64,7 +64,7 @@ public class PictureLogger {
     
     public void convertToImage(){
         System.out.println("Criando "+fileName +  ".png ..."); 
-        txtToImage converter = new txtToImage(fileName);
+        TxtToImage converter = new TxtToImage(fileName);
         converter.convert();
         
         

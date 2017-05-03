@@ -21,9 +21,10 @@ public class SimulationParameters {
     float defaultCarSize;
     String model;
     String logName;
-    int pictureLog;
+    String pictureLog;
+    
 
-    public SimulationParameters(int speedLimit, float probP, int simulationTime, int discardTime, int statisticTime, float initialDensity, float deltaDendity, float finalDensity, int cellsInX, int cellsInY, float cellSize, float defaultCarSize, String model, String logName, int pictureLog) {
+    public SimulationParameters(int speedLimit, float probP, int simulationTime, int discardTime, int statisticTime, float initialDensity, float deltaDendity, float finalDensity, int cellsInX, int cellsInY, float cellSize, float defaultCarSize, String model, String logName, String pictureLog) {
         this.speedLimit = speedLimit;
         this.probP = probP;
         this.simulationTime = simulationTime;
@@ -156,11 +157,11 @@ public class SimulationParameters {
         this.logName = logName;
     }
 
-    public int getPictureLog() {
+    public String getPictureLog() {
         return pictureLog;
     }
 
-    public void setPictureLog(int pictureLog) {
+    public void setPictureLog(String pictureLog) {
         this.pictureLog = pictureLog;
     }
 

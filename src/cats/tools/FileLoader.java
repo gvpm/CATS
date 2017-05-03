@@ -33,7 +33,7 @@ public class FileLoader {
     float defaultCarSize;
     String model;
     String logName;
-    int pictureLog;
+    String pictureLog;
 
 //Profile Parameters
     String fdpProvider = "";
@@ -141,7 +141,8 @@ public class FileLoader {
 
                 } else if (line.startsWith("PICTURELOG")) {
                     String[] sv = line.split(":");
-                    pictureLog = Integer.parseInt(sv[1]);
+                    //pictureLog = Integer.parseInt(sv[1]);
+                    pictureLog = sv[1];
                     parameters.setPictureLog(pictureLog);
 
                 } else if (line.startsWith("ENDOFPARAMETERS")) {
