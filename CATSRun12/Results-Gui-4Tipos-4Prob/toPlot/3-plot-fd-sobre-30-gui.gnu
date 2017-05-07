@@ -11,6 +11,7 @@ set ylabel "Flow"
 plot "naschp30ROUNDAGAIN.txt" using 2:1 title "naschp30ROUNDAGAIN" with points pointtype 1 , \
      "a1b6p30ROUNDAGAIN.txt" using 2:1 title "a1b6p30ROUNDAGAIN" with points pointtype 1 , \
      "a4b8p30ROUNDAGAIN.txt" using 2:1 title "a4b8p30ROUNDAGAIN" with points pointtype 1 , \
+     "a4b4p30ROUNDAGAIN.txt" using 2:1 title "a4b4p30ROUNDAGAIN" with points pointtype 1 , \
      "a8b4p30ROUNDAGAIN.txt" using 2:1 title "a8b4p30ROUNDAGAIN" with points pointtype 1 
 
 
