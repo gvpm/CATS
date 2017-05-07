@@ -5,7 +5,7 @@
 //- PictureLog Value (0 will not log, 1 will log)
 //---------------------------------------------------
 SPEEDLIMIT:25
-PROBP:10
+PROBP:30
 SIMULATIONTIME:15000
 DISCARDTIME:10000
 STATISTICTIME:121
@@ -17,7 +17,7 @@ CELLSINY:1
 CELLSIZE:1.5
 DEFAULTCARSIZE:7.5
 MODEL:naschWithBeta
-LOGNAME:a8b4p10ROUND
+LOGNAME:a8b4p30ROUNDAGAIN
 PICTURELOG:0
 ENDOFPARAMETERS
 //---------------------------------------------------

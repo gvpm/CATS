@@ -5,7 +5,7 @@
 //- PictureLog Value (0 will not log, 1 will log)
 //---------------------------------------------------
 SPEEDLIMIT:25
-PROBP:70
+PROBP:30
 SIMULATIONTIME:15000
 DISCARDTIME:10000
 STATISTICTIME:121
@@ -16,8 +16,8 @@ CELLSINX:10000
 CELLSINY:1
 CELLSIZE:1.5
 DEFAULTCARSIZE:7.5
-MODEL:naschWithBeta
-LOGNAME:a8b4p70ROUND
+MODEL:nasch
+LOGNAME:naschp30ROUNDAGAIN
 PICTURELOG:0
 ENDOFPARAMETERS
 //---------------------------------------------------
@@ -27,7 +27,7 @@ ENDOFPARAMETERS
 //- Copy all the Profile Parameters for a new Profile
 //- Sum of all PERCENTAGEOCCURRENCE must be 1
 //---------------------------------------------------
-FDPPROVIDER:beta
+FDPPROVIDER:uniform
 NAME:NaschBasic
 SIZE:5
 VELMAX:25
@@ -35,8 +35,8 @@ AHEAD:0
 SAFEDISTANCE:0
 VELINCREMENT:5
 PERCENTAGEOCCURRENCE:1
-ALPHAACC:8
-BETAACC:4
-ALPHAANT:8
-BETAANT:4
+ALPHAACC:4
+BETAACC:1
+ALPHAANT:4
+BETAANT:1
 ENDOFPROFILE
