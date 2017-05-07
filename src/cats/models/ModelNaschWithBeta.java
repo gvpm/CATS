@@ -29,7 +29,10 @@ public class ModelNaschWithBeta extends Model {
         float roundA = (float) (Math.round(alpha * 100.0) / 100.0);
         //The acceleration is calculated based on the alpha
         //The acceleration set in the cars profile is multiplied by a number between 0 and 1.
-        int calculatedAcceletarion = Math.round(acceleration * (1 - roundA));
+        
+        int calculatedAcceletarion = (int) Math.floor(acceleration+1 * (1 - roundA));
+        calculatedAcceletarion = min(acceleration,calculatedAcceletarion);
+        //int calculatedAcceletarion = Math.round(acceleration * (1 - roundA));
         //New Velocity is calculated.
         //This new value is added to the current velocity of the car.
         //There is a cap so that this new value will not be higher than the maximum velocity of the road.
