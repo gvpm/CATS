@@ -8,6 +8,7 @@ import cats.fdps.FDPProviderUniform;
 import cats.fdps.FDPProvider;
 import cats.models.ModelFactory;
 import cats.models.Model;
+import cats.tools.AcidCounter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class Core {
 
     Model model;
     DataExtractor dataExtractor;
+    AcidCounter acid;
 
     Logger logger;
     PictureLogger picLogger;
@@ -71,6 +73,15 @@ public class Core {
         createGrid();
         //Inits the general Uniform FDP Provider
         generalFDPUniform = new FDPProviderUniform();
+        
+//-------------------------------------------------------------        
+//---------------ACID RELATED---------------------------
+//------------------------------------------------------------- 
+        acid = new AcidCounter(this);
+
+//-------------------------------------------------------------        
+//---------------ACID LOG RELATED---------------------------
+//-------------------------------------------------------------
 
     }
 
@@ -121,6 +132,16 @@ public class Core {
         String roundDString = ""+roundD;
         
         String fileName = parameters.getLogName()+"-d" + roundD;
+//-------------------------------------------------------------        
+//---------------ACID RELATED---------------------------
+//------------------------------------------------------------- 
+        acid.reset();
+
+//-------------------------------------------------------------        
+//---------------ACID LOG RELATED---------------------------
+//------------------------------------------------------------- 
+        
+        
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
 //------------------------------------------------------------- 

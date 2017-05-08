@@ -21,6 +21,8 @@ public class Vehicle {
     int velocity;
     int newVelocity;
     int oldVelocity;
+    int distanceToFront;
+    int oldDistanceToFront;
 
     Vehicle frontNeighbour;
     Vehicle backNeighbour;
@@ -202,13 +204,14 @@ public class Vehicle {
 //        if(getId()==4 && newGridXPosition!=gridXPosition){
 //            System.out.print(" "+ gridXPosition);
 //        }
-
+        
         oldGridXPosition = gridXPosition;
         oldGridYPosition = gridYPosition;
         gridXPosition = newGridXPosition;
         gridYPosition = newGridYPosition;
         oldVelocity = velocity;
         velocity = newVelocity;
+        oldDistanceToFront = distanceToFront;
 
     }
 
@@ -227,5 +230,23 @@ public class Vehicle {
         return getProfile().getFdpProvider().provide((int) a, (int) b);
 
     }
+
+    public int getDistanceToFront() {
+        return distanceToFront;
+    }
+
+    public void setDistanceToFront(int distanceToFront) {
+        this.distanceToFront = distanceToFront;
+    }
+
+    public int getOldDistanceToFront() {
+        return oldDistanceToFront;
+    }
+
+    public void setOldDistanceToFront(int oldDistanceToFront) {
+        this.oldDistanceToFront = oldDistanceToFront;
+    }
+    
+    
 
 }

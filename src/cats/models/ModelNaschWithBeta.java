@@ -23,6 +23,7 @@ public class ModelNaschWithBeta extends Model {
         //This will be applied to every car in each step of the simulation.
         //Here the space between the current car and the car in front of it is calculated.
         distanceToFront = vehicle.getDistanceToFrontAndId()[0];
+        vehicle.setDistanceToFront(distanceToFront);
         //Here the alpha is calculated, is a number between 0 and 1, it is given by the beta function.
         float alpha = vehicle.getBetaFunctionAcc();
         //The rounded version of the alpha is calculated.

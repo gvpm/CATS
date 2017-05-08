@@ -32,6 +32,7 @@ public class ModelTUFF extends Model {
         //calculate space between the vehicle and the one to the front
         distanceAndId = vehicle.getDistanceToFrontAndId(); 
         distanceToFront = distanceAndId[0];
+        vehicle.setDistanceToFront(distanceToFront);
         vehicleAtFront = vehicle.getCore().getVehicleFromId(distanceAndId[1]);
         
         //calculate space between the vehicle ate front and the one in front of it        
