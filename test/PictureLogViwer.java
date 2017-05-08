@@ -16,6 +16,8 @@ public class PictureLogViwer extends PApplet {
     BufferedReader b;
     boolean eof;
     int i = 1;
+    
+    PImage img;
 
     public static void main(String[] args) {
 
@@ -49,14 +51,15 @@ public class PictureLogViwer extends PApplet {
         } catch (IOException ex) {
 
         }
+        img = loadImage("car.png");
 
     }
 
     @Override
     public void draw() {
         
-        iterate();
-        background(255);
+        //iterate();
+        background(200);
         stroke(0);
         String[] splittedLine = line.split("");
         if (splittedLine.length > 0) {
@@ -76,7 +79,8 @@ public class PictureLogViwer extends PApplet {
 //                        rect(j, center + i + 3, 1, 1);
 //                        rect(j, center + i + 4, 1, 1);
                         fill(100);
-                        rect(j+(j*2), center + i, 29 ,15);
+                        //rect(j+(j*2), center + i, 29 ,15);
+                        image(img, j+(j*2), center+i);
 //                        rect(j+(j*2), center + i + 1, 1, 1);
 //                        rect(j+(j*2), center + i + 2, 1, 1);
 //                        rect(j+(j*2), center + i + 3, 1, 1);
