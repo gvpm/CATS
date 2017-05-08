@@ -6,6 +6,8 @@
 package cats.tools;
 
 import cats.core.Core;
+import cats.core.Vehicle;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +18,7 @@ public class AcidCounter {
     Core core;
     int acid1Counter;
     int acid2Counter;
+    ArrayList<Vehicle> vehicles;
 
     public AcidCounter(Core core) {
         this.core = core;
@@ -28,13 +31,27 @@ public class AcidCounter {
 
     //Accident measure logic here
     public void measure() {
+        vehicles = core.getVehicles();
+        Vehicle vehicle;
+        Vehicle vehicleAtFront;
+        for (int i = 0; i < vehicles.size(); i++) {
+            vehicle = vehicles.get(i);
+            int vehicleAtFrontId = vehicle.getOldFrontId();
+            vehicleAtFront = core.getVehicleFromId(vehicleAtFrontId);
+            //2 vehicles now at hand, do the logic here
+            acid1Counter++;
+            acid2Counter++;
+
+        }
 
     }
 
     public int[] getMeasures() {
-
+        int[] measures = new int[2];
+        measures[0] = acid1Counter;
+        measures[1] = acid2Counter;
         reset();
-        return null;
+        return measures;
     }
 
 }

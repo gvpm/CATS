@@ -23,6 +23,8 @@ public class Vehicle {
     int oldVelocity;
     int distanceToFront;
     int oldDistanceToFront;
+    int frontId;
+    int oldFrontId;
 
     Vehicle frontNeighbour;
     Vehicle backNeighbour;
@@ -213,6 +215,7 @@ public class Vehicle {
         oldVelocity = velocity;
         velocity = newVelocity;
         oldDistanceToFront = distanceToFront;
+        oldFrontId = frontId;
 
     }
 
@@ -246,6 +249,22 @@ public class Vehicle {
 
     public void setOldDistanceToFront(int oldDistanceToFront) {
         this.oldDistanceToFront = oldDistanceToFront;
+    }
+
+    public int getFrontId() {
+        return frontId;
+    }
+
+    public void setFrontId(int frontId) {
+        this.frontId = frontId;
+    }
+
+    public int getOldFrontId() {
+        return oldFrontId;
+    }
+
+    public void setOldFrontId(int oldFrontId) {
+        this.oldFrontId = oldFrontId;
     }
 
 }

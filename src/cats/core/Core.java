@@ -6,6 +6,7 @@ import cats.loggers.PictureLogger;
 import cats.loggers.Logger;
 import cats.fdps.FDPProviderUniform;
 import cats.fdps.FDPProvider;
+import cats.loggers.AcidLogger;
 import cats.models.ModelFactory;
 import cats.models.Model;
 import cats.tools.AcidCounter;
@@ -36,6 +37,13 @@ public class Core {
     AcidCounter acid;
 
     Logger logger;
+//-------------------------------------------------------------        
+//---------------ACID RELATED----------------------------------
+//-------------------------------------------------------------
+    AcidLogger acidLogger;
+//-------------------------------------------------------------        
+//---------------ACID RELATED---------------------------
+//-------------------------------------------------------------
     PictureLogger picLogger;
     //This is a general FDP Uniform Provider.
     FDPProvider generalFDPUniform;
@@ -69,6 +77,13 @@ public class Core {
         dataExtractor = new DataExtractor(this);
         //Will log information 
         logger = new Logger(parameters.getLogName());
+//-------------------------------------------------------------        
+//---------------ACID RELATED----------------------------------
+//-------------------------------------------------------------
+        acidLogger = new AcidLogger(parameters.getLogName() + "-acid");
+//-------------------------------------------------------------        
+//---------------ACID RELATED----------------------------------
+//-------------------------------------------------------------
         //Creates the grid
         createGrid();
         //Inits the general Uniform FDP Provider
@@ -115,6 +130,14 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------------MAIN LOG RELATED------------------------
 //-------------------------------------------------------------
+//-------------------------------------------------------------        
+//---------------ACID RELATED----------------------------------
+//------------------------------------------------------------- 
+//I need to close the acid logger here
+        acidLogger.closeLogger();
+//-------------------------------------------------------------        
+//---------------ACID LOG RELATED------------------------------
+//------------------------------------------------------------- 
 
     }
 
@@ -134,6 +157,7 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
+//Here I reset the acid counters to start this new density
         acid.reset();
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
@@ -164,7 +188,10 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
-            acid.measure();
+//after each iteration I update the acid counters
+            if ((i > discardTime)) {
+                acid.measure();
+            }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
 //-------------------------------------------------------------             
@@ -198,6 +225,20 @@ public class Core {
 //------------------------------------------------------------- 
 
         }
+//-----------------END OF DENSITY SIMULATION--------------------  
+
+//-------------------------------------------------------------        
+//---------------ACID RELATED----------------------------------
+//------------------------------------------------------------- 
+//When the density is created I will log a line in the acidlog
+        int[] acidMeasures = acid.getMeasures();
+        //Do more math and put more infor in this line
+        int timeConsidered = simulationTime - discardTime;
+        acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1],vehicles.size(),timeConsidered);
+//-------------------------------------------------------------        
+//---------------ACID LOG RELATED------------------------------
+//-------------------------------------------------------------  
+
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
 //-------------------------------------------------------------         
