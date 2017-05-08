@@ -22,7 +22,6 @@ public class SimulationParameters {
     String model;
     String logName;
     String pictureLog;
-    
 
     public SimulationParameters(int speedLimit, float probP, int simulationTime, int discardTime, int statisticTime, float initialDensity, float deltaDendity, float finalDensity, int cellsInX, int cellsInY, float cellSize, float defaultCarSize, String model, String logName, String pictureLog) {
         this.speedLimit = speedLimit;

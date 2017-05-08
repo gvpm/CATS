@@ -177,6 +177,7 @@ public class Vehicle {
         return getProfile().getSize();
 
     }
+
     //gives the distance to the car at front and the id
     public int[] getDistanceToFrontAndId() {
         int pointer = grid.getNextXPosition(this.getGridXPosition());
@@ -188,9 +189,9 @@ public class Vehicle {
             distance++;
         }
         int[] r = new int[2];
-        r[0]=distance;
+        r[0] = distance;
         //car that is in that position
-        r[1]= grid.getFromPosition(pointer);
+        r[1] = grid.getFromPosition(pointer);
         return r;
     }
 
@@ -204,7 +205,7 @@ public class Vehicle {
 //        if(getId()==4 && newGridXPosition!=gridXPosition){
 //            System.out.print(" "+ gridXPosition);
 //        }
-        
+
         oldGridXPosition = gridXPosition;
         oldGridYPosition = gridYPosition;
         gridXPosition = newGridXPosition;
@@ -246,7 +247,5 @@ public class Vehicle {
     public void setOldDistanceToFront(int oldDistanceToFront) {
         this.oldDistanceToFront = oldDistanceToFront;
     }
-    
-    
 
 }

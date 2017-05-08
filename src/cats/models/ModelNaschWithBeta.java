@@ -9,10 +9,10 @@ import cats.core.Vehicle;
  * @author gvpm
  */
 public class ModelNaschWithBeta extends Model {
-
+    
     @Override
     public void apply(Vehicle vehicle) {
-
+        
         Grid grid = vehicle.getGrid();
         int distanceToFront;
         int newVel;
@@ -31,8 +31,8 @@ public class ModelNaschWithBeta extends Model {
         //The acceleration is calculated based on the alpha
         //The acceleration set in the cars profile is multiplied by a number between 0 and 1.
         
-        int calculatedAcceletarion = (int) Math.floor((acceleration+1) * (1 - roundA));
-        calculatedAcceletarion = min(acceleration,calculatedAcceletarion);
+        int calculatedAcceletarion = (int) Math.floor((acceleration + 1) * (1 - roundA));
+        calculatedAcceletarion = min(acceleration, calculatedAcceletarion);
         //New Velocity is calculated.
         //This new value is added to the current velocity of the car.
         //There is a cap so that this new value will not be higher than the maximum velocity of the road.
@@ -42,21 +42,21 @@ public class ModelNaschWithBeta extends Model {
         //Uses the Uniform FDP to decide if its going to use the calculated acceletarion or not.
         //Subtracts the acceletation with a probP chance of happening. probP is defined in the config file.
         if (vehicle.getCore().provideGeneralFDPUniform()) {
-           newVel = max(newVel - calculatedAcceletarion, 0);
+            newVel = max(newVel - calculatedAcceletarion, 0);
         }
-        
+
         //Sets the vehicle new velocity.
         vehicle.setNewVelocity(newVel);
-
+        
         int newXPosition = grid.getNewXPostition(vehicle.getGridXPosition(), newVel);
-
+        
         vehicle.setNewGridXPosition(newXPosition);
-
+        
     }
-
+    
     @Override
     public String toString() {
         return "NaschWithBeta";
     }
-
+    
 }

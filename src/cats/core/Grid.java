@@ -77,7 +77,7 @@ public class Grid {
                     grid[position] = v.getId();
                     //The position to put the vehicle will be the one in the back in the grid
                     position = getPreviousXPosition(position);
-                    
+
                 }
 
             }
@@ -92,8 +92,6 @@ public class Grid {
      * @param vehicles
      */
     public void placeVehiclesOnGrid(ArrayList<Vehicle> vehicles) {
-       
-        
 
         int xPosition = grid.length - 1;
 
@@ -109,22 +107,22 @@ public class Grid {
         }
 
     }
-    
-     public void placeVehiclesOnGridSeparate1Profile(ArrayList<Vehicle> vehicles) {
-         ArrayList<Integer> positions=  new ArrayList<>();
+
+    public void placeVehiclesOnGridSeparate1Profile(ArrayList<Vehicle> vehicles) {
+        ArrayList<Integer> positions = new ArrayList<>();
         int size = vehicles.get(0).getProfile().getSize();
         //puts in an array list all the possible positions
-        for (int i = size-1; i < grid.length; i+=size) {
+        for (int i = size - 1; i < grid.length; i += size) {
             positions.add(i);
-            
+
         }
         for (int i = vehicles.size() - 1; i >= 0; i--) {
-            
+
             Vehicle v = vehicles.get(i);
-            
+
             Random rand = new Random();
             //Picks a random x from the possible positions  
-            int p = rand.nextInt(positions.size());                      
+            int p = rand.nextInt(positions.size());
             int xPosition = positions.get(p);
             //Removes from the list 
             positions.remove(p);
@@ -135,11 +133,9 @@ public class Grid {
                 xPosition--;
 
             }
-            
-            
+
         }
-        
-        
+
 //        int xPosition = grid.length - 1;
 //
 //        for (int i = vehicles.size() - 1; i >= 0; i--) {
@@ -152,7 +148,6 @@ public class Grid {
 //            }
 //
 //        }
-
     }
 
     public int[] getGrid() {

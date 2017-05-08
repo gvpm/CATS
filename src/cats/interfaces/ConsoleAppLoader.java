@@ -42,24 +42,24 @@ public class ConsoleAppLoader {
         fileLoader.load();
 
         Core core = fileLoader.getCore();
-        
+
         //Override of the log name if a second parameter is passed.
-         if (args.length == 2){
-             core.getParameters().setLogName(args[1]);
-         }
+        if (args.length == 2) {
+            core.getParameters().setLogName(args[1]);
+        }
         //Initial setup
         core.init();
-        
+
         //The initial time
         long startTime = System.currentTimeMillis();
         //The entire simulation
         core.simulateAllDensities();
         //Calculates and prints the elapsed time
         long elapsedTime = System.currentTimeMillis() - startTime;
-        long secondsTotal = elapsedTime/1000;
-        long minutes = secondsTotal/60;
+        long secondsTotal = elapsedTime / 1000;
+        long minutes = secondsTotal / 60;
         long secondsRest = secondsTotal % 60;
-        System.out.println("Total Simulation Time: "+ minutes+" minutes and "+secondsRest+" seconds.");
+        System.out.println("Total Simulation Time: " + minutes + " minutes and " + secondsRest + " seconds.");
 
     }
 

@@ -61,7 +61,7 @@ public class Core {
 
     //Initializes the core.
     public void init() {
-        
+
         //Creates the model to be applied in the cars, using a factory.
         ModelFactory modelFactory = new ModelFactory();
         model = modelFactory.fabricate(parameters.getModel());
@@ -73,7 +73,7 @@ public class Core {
         createGrid();
         //Inits the general Uniform FDP Provider
         generalFDPUniform = new FDPProviderUniform();
-        
+
 //-------------------------------------------------------------        
 //---------------ACID RELATED---------------------------
 //------------------------------------------------------------- 
@@ -82,7 +82,6 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED---------------------------
 //-------------------------------------------------------------
-
     }
 
     /**
@@ -129,23 +128,20 @@ public class Core {
         setInitialCondition(d);
         //Rounds the density 
         float roundD = (float) (Math.round(d * 100.0) / 100.0);
-        String roundDString = ""+roundD;
-        
-        String fileName = parameters.getLogName()+"-d" + roundD;
+        String roundDString = "" + roundD;
+
+        String fileName = parameters.getLogName() + "-d" + roundD;
 //-------------------------------------------------------------        
-//---------------ACID RELATED---------------------------
+//---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
         acid.reset();
-
 //-------------------------------------------------------------        
-//---------------ACID LOG RELATED---------------------------
+//---------------ACID LOG RELATED------------------------------
 //------------------------------------------------------------- 
-        
-        
+
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
 //------------------------------------------------------------- 
-        
         //Creates a picture log for that density
         //if (parameters.getPictureLog() == 1) {
         if (parameters.getPictureLog().contains(roundDString)) {
@@ -164,6 +160,14 @@ public class Core {
         for (int i = 0; i < simulationTime; i++) {
 
             iterate();
+
+//-------------------------------------------------------------        
+//---------------ACID RELATED----------------------------------
+//------------------------------------------------------------- 
+            acid.measure();
+//-------------------------------------------------------------        
+//---------------ACID LOG RELATED------------------------------
+//-------------------------------------------------------------             
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
 //-------------------------------------------------------------             
@@ -204,7 +208,7 @@ public class Core {
             picLogger.convertToImage();
             //Deletes the big file
             picLogger.deleteLog();
-            
+
         }
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
@@ -281,7 +285,7 @@ public class Core {
      * next iteration.
      */
     public void update() {
-        
+
         grid.updateVehiclesOnGrid(vehicles);
         for (int i = 0; i < vehicles.size(); i++) {
             vehicles.get(i).updateInfo();
@@ -348,10 +352,9 @@ public class Core {
 
         //set the cars neighbours
         setNeighbours();
-        
+
         //THIS ONE WORKS FOR ALL PROFILES
         //grid.placeVehiclesOnGrid(vehicles);
-        
         //THIS ONLY WORKS FOR ONE PROFILE
         grid.placeVehiclesOnGridSeparate1Profile(vehicles);
 
@@ -423,23 +426,23 @@ public class Core {
     public Model getModel() {
         return model;
     }
-    
-    public Vehicle getVehicleFromId(int id){
-        Vehicle r=null;
+
+    public Vehicle getVehicleFromId(int id) {
+        Vehicle r = null;
         for (int i = 0; i < vehicles.size(); i++) {
-            if(vehicles.get(i).getId()== id){
+            if (vehicles.get(i).getId() == id) {
                 r = vehicles.get(i);
             }
-            
+
         }
         return r;
-        
+
     }
-    
-     public boolean provideGeneralFDPUniform(){
-     
-        return generalFDPUniform.provide((int)parameters.getProbP());
-        
+
+    public boolean provideGeneralFDPUniform() {
+
+        return generalFDPUniform.provide((int) parameters.getProbP());
+
     }
 
 }

@@ -26,7 +26,7 @@ public class ModelNasch extends Model {
 
         //Calculate new vel, addind acceleratio to vel
         newVel = min(currentVel + acceleration, vMax);
-        
+
         //Caps the new vel bases on the distance to the vehicle on the front
         newVel = min(newVel, distanceToFront);
 
@@ -35,7 +35,6 @@ public class ModelNasch extends Model {
             newVel = max(newVel - acceleration, 0);
 
         }
-        
 
         //sets the vehicle new vel
         vehicle.setNewVelocity(newVel);

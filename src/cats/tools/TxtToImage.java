@@ -1,6 +1,5 @@
 package cats.tools;
 
-
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -14,15 +13,15 @@ import javax.imageio.ImageIO;
  * @author gvpm
  */
 public class TxtToImage {
+
     String fileName;
 
     public TxtToImage(String fileName) {
-        this.fileName=fileName;
-        
+        this.fileName = fileName;
+
     }
-    
-        
-    public void convert (){   
+
+    public void convert() {
 
         try {
 
@@ -31,7 +30,7 @@ public class TxtToImage {
 
             FileReader in;
 
-            in = new FileReader(fileName+".txt");
+            in = new FileReader(fileName + ".txt");
             BufferedReader b;
             b = new BufferedReader(in);
             boolean eof = false;
@@ -49,14 +48,14 @@ public class TxtToImage {
 
             //Crates the  image based on the numbers found above
             int type = BufferedImage.TYPE_INT_ARGB;
-            File f = new File(fileName+".png");
+            File f = new File(fileName + ".png");
             BufferedImage image = new BufferedImage(w, h, type);
 
             //Sets the RGB od the 2 colors that will be used
             int blue = new Color(0, 0, 255).getRGB();
             int white = new Color(255, 255, 255).getRGB();
             //Reads the file again
-            in = new FileReader(fileName+".txt");
+            in = new FileReader(fileName + ".txt");
             b = new BufferedReader(in);
             eof = false;
             int i = 0;
@@ -83,7 +82,7 @@ public class TxtToImage {
             }
 
             ImageIO.write(image, "PNG", f);
-            System.out.println("Arquivo "+fileName +  ".png Criado."); 
+            System.out.println("Arquivo " + fileName + ".png Criado.");
 
         } catch (IOException e) {
 

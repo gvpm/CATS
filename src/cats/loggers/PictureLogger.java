@@ -49,25 +49,23 @@ public class PictureLogger {
 
     public void closeLogger() {
         gravarArq.close();
-        System.out.println("\nArquivo "+fileName +  ".txt Criado."); 
-        
+        System.out.println("\nArquivo " + fileName + ".txt Criado.");
 
     }
-    
-    public void deleteLog(){
-        File file = new File(fileName+".txt");
-        if(file.delete()){
-            System.out.println("Arquivo "+fileName +  ".txt Deletado."); 
+
+    public void deleteLog() {
+        File file = new File(fileName + ".txt");
+        if (file.delete()) {
+            System.out.println("Arquivo " + fileName + ".txt Deletado.");
         }
-        
+
     }
-    
-    public void convertToImage(){
-        System.out.println("Criando "+fileName +  ".png ..."); 
+
+    public void convertToImage() {
+        System.out.println("Criando " + fileName + ".png ...");
         TxtToImage converter = new TxtToImage(fileName);
         converter.convert();
-        
-        
+
     }
 
     public float getDensity() {
