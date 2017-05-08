@@ -8,13 +8,14 @@ import processing.core.*;
 public class PictureLogViwer extends PApplet {
 
     int rows, columns;
-    int x = 1250;
+    int x = 1050;
     int y = 50;
     int[] grid;
     String line;
     FileReader f;
     BufferedReader b;
     boolean eof;
+    int i = 1;
 
     public static void main(String[] args) {
 
@@ -29,11 +30,11 @@ public class PictureLogViwer extends PApplet {
     @Override
     public void setup() {
         rows = 1;
-        columns = 1250;
+        columns = 351;
         background(255);
 
         try {
-            f = new FileReader("0.5.txt");
+            f = new FileReader("0.3.txt");
 
             b = new BufferedReader(f);
             eof = false;
@@ -53,27 +54,42 @@ public class PictureLogViwer extends PApplet {
 
     @Override
     public void draw() {
+        
+        iterate();
         background(255);
         stroke(0);
         String[] splittedLine = line.split("");
         if (splittedLine.length > 0) {
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < columns; j++) {
+            
+                for (int j = 1; j < columns; j++) {
                     int lineValue = Integer.parseInt(splittedLine[j]);
-                    if (lineValue != 0) {
+                    int frontLineValue = Integer.parseInt(splittedLine[j+1]);
+                    int backLineValue = Integer.parseInt(splittedLine[j-1]);
+                    
+                    //if (lineValue != 0) {
+                    if (lineValue != 0 && frontLineValue!=0 && backLineValue==0 ) {    
                         fill(0);
                         int center = 20;
-                        rect(j, center + i, 1, 1);
-                        rect(j, center + i + 1, 1, 1);
-                        rect(j, center + i + 2, 1, 1);
-                        rect(j, center + i + 3, 1, 1);
-                        rect(j, center + i + 4, 1, 1);
+//                        rect(j, center + i, 1, 1);
+//                        rect(j, center + i + 1, 1, 1);
+//                        rect(j, center + i + 2, 1, 1);
+//                        rect(j, center + i + 3, 1, 1);
+//                        rect(j, center + i + 4, 1, 1);
+                        fill(100);
+                        rect(j+(j*2), center + i, 29 ,15);
+//                        rect(j+(j*2), center + i + 1, 1, 1);
+//                        rect(j+(j*2), center + i + 2, 1, 1);
+//                        rect(j+(j*2), center + i + 3, 1, 1);
+//                        rect(j+(j*2), center + i + 4, 1, 1);
                     }
 
                 }
 
-            }
+            
         }
+        //rect(1000, 30, 5, 5);
+        //rect(500, 30, 1, 1);
+        
 
     }
 
