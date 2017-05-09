@@ -80,7 +80,9 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //-------------------------------------------------------------
-        acidLogger = new AcidLogger(parameters.getLogName() + "-acid");
+        if (parameters.getAcidLog() == 1) {
+            acidLogger = new AcidLogger(parameters.getLogName() + "-acid");
+        }
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //-------------------------------------------------------------
@@ -92,8 +94,9 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------ACID RELATED---------------------------
 //------------------------------------------------------------- 
-        acid = new AcidCounter(this);
-
+        if (parameters.getAcidLog() == 1) {
+            acid = new AcidCounter(this);
+        }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED---------------------------
 //-------------------------------------------------------------
@@ -134,7 +137,9 @@ public class Core {
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
 //I need to close the acid logger here
-        acidLogger.closeLogger();
+        if (parameters.getAcidLog() == 1) {
+            acidLogger.closeLogger();
+        }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
 //------------------------------------------------------------- 
@@ -157,8 +162,10 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
+        if (parameters.getAcidLog() == 1) {
 //Here I reset the acid counters to start this new density
-        acid.reset();
+            acid.reset();
+        }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
 //------------------------------------------------------------- 
@@ -188,9 +195,11 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
+            if (parameters.getAcidLog() == 1) {
 //after each iteration I update the acid counters
-            if ((i > discardTime)) {
-                acid.measure();
+                if ((i > discardTime)) {
+                    acid.measure();
+                }
             }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
@@ -230,11 +239,13 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
+        if (parameters.getAcidLog() == 1) {
 //When the density is created I will log a line in the acidlog
-        int[] acidMeasures = acid.getMeasures();
-        //Do more math and put more infor in this line
-        int timeConsidered = simulationTime - discardTime;
-        acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1],vehicles.size(),timeConsidered);
+            int[] acidMeasures = acid.getMeasures();
+            //Do more math and put more infor in this line
+            int timeConsidered = simulationTime - discardTime - 1;
+            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], vehicles.size(), timeConsidered);
+        }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
 //-------------------------------------------------------------  

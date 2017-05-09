@@ -29,7 +29,7 @@ public class AcidLogger {
     }
 
     public void logALine(float density, int acid1, int acid2, int nOfCars, int timeConsidered) {
-        gravarArq.println((int) density + " " + acid1 + " " + acid2 + " " + nOfCars+ " " + timeConsidered);
+        gravarArq.println((int) density + " " + acid1 + " " + acid2 + " " + nOfCars + " " + timeConsidered);
         gravarArq.flush();
 
     }

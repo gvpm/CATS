@@ -34,6 +34,7 @@ public class FileLoader {
     String model;
     String logName;
     String pictureLog;
+    int acidLog;
 
 //Profile Parameters
     String fdpProvider = "";
@@ -144,6 +145,12 @@ public class FileLoader {
                     //pictureLog = Integer.parseInt(sv[1]);
                     pictureLog = sv[1];
                     parameters.setPictureLog(pictureLog);
+
+                } else if (line.startsWith("ACIDLOG")) {
+                    String[] sv = line.split(":");
+                    //pictureLog = Integer.parseInt(sv[1]);
+                    acidLog = Integer.parseInt(sv[1]);
+                    parameters.setAcidLog(acidLog);
 
                 } else if (line.startsWith("ENDOFPARAMETERS")) {
                     core.setParameters(parameters);

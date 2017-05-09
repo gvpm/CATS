@@ -9,10 +9,10 @@ import cats.core.Vehicle;
  * @author gvpm
  */
 public class ModelNasch extends Model {
-    
+
     @Override
     public void apply(Vehicle vehicle) {
-        
+
         Grid grid = vehicle.getGrid();
         int distanceToFront;
         int newVel;
@@ -36,7 +36,7 @@ public class ModelNasch extends Model {
         //Gets the alpha to decide if its going to use acceletarion or not
         if (vehicle.getProfile().getFdpProvider().provide((int) vehicle.getCore().getParameters().getProbP())) {
             newVel = max(newVel - acceleration, 0);
-            
+
         }
 
         //sets the vehicle new vel
@@ -44,14 +44,14 @@ public class ModelNasch extends Model {
 
         //gets the new x position based on the current plus  adding new vel
         int newXPosition = grid.getNewXPostition(vehicle.getGridXPosition(), newVel);
-        
+
         vehicle.setNewGridXPosition(newXPosition);
-        
+
     }
-    
+
     @Override
     public String toString() {
         return "Nasch";
     }
-    
+
 }

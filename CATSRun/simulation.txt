@@ -2,6 +2,7 @@
 //-----------------Simulation Parameters---------------
 //-----------------------------------------------------
 //- = MODEL Values (nasch,naschWithBeta)
+//- = ACIDLOG Values (0 No log. 1 to log)
 //- = PICTURELOG Values: 
 //- You can set the densities you want the picLog.
 //- Just write the density with a dot eg: 0.1
@@ -25,6 +26,7 @@ MODEL:nasch
 //MODEL:tuff
 LOGNAME:naschp30
 PICTURELOG:0
+ACIDLOG:0
 ENDOFPARAMETERS
 //-----------------------------------------------------
 //---------------------Profiles------------------------
