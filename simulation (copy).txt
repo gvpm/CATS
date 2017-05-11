@@ -22,9 +22,9 @@ CELLSINX:10000
 CELLSINY:1
 CELLSIZE:1.5
 DEFAULTCARSIZE:7.5
-MODEL:naschWithBeta
+MODEL:nasch
 //MODEL:tuff
-LOGNAME:a8b4p30-ac
+LOGNAME:naschp30
 PICTURELOG:0
 ACIDLOG:1
 ENDOFPARAMETERS
@@ -35,7 +35,7 @@ ENDOFPARAMETERS
 //- = Copy all the Profile Parameters for a new Profile
 //- = Sum of all PERCENTAGEOCCURRENCE must be 1
 //-----------------------------------------------------
-FDPPROVIDER:beta
+FDPPROVIDER:uniform
 NAME:NaschBasic
 SIZE:5
 VELMAX:25

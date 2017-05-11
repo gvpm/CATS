@@ -13,6 +13,7 @@ public class AcidCounter {
     Core core;
     int acid1Counter;
     int acid2Counter;
+    int acid3Counter;
     ArrayList<Vehicle> vehicles;
 
     public AcidCounter(Core core) {
@@ -22,6 +23,8 @@ public class AcidCounter {
     public void reset() {
         this.acid1Counter = 0;
         this.acid2Counter = 0;
+        this.acid3Counter = 0;
+        
     }
 
     //Accident measure logic here
@@ -33,12 +36,18 @@ public class AcidCounter {
             vehicle = vehicles.get(i);
             int vehicleAtFrontId = vehicle.getOldFrontId();
             vehicleAtFront = core.getVehicleFromId(vehicleAtFrontId);
+            
+            boolean acid1 = acid1(vehicle,vehicleAtFront);
+            boolean acid2 = acid2(vehicle,vehicleAtFront);
             //2 vehicles now at hand, do the logic here
-            if(acid1(vehicle,vehicleAtFront)){
+            if(acid1){
             acid1Counter++;
             }
-            if(acid2(vehicle,vehicleAtFront)){
+            if(acid2){
             acid2Counter++;
+            }
+            if(acid1&&acid2){
+                acid3Counter++;
             }
         }
 
@@ -68,13 +77,14 @@ public class AcidCounter {
         boolean condition2 = (vehicleAtFrontOldVel - vehicleAtFrontVel)>=vd ; 
         
         
-        return false;
+        return condition1 && condition2;
     }
 
     public int[] getMeasures() {
-        int[] measures = new int[2];
+        int[] measures = new int[3];
         measures[0] = acid1Counter;
         measures[1] = acid2Counter;
+        measures[2] = acid3Counter;
         reset();
         return measures;
     }
