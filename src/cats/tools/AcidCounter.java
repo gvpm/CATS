@@ -34,11 +34,41 @@ public class AcidCounter {
             int vehicleAtFrontId = vehicle.getOldFrontId();
             vehicleAtFront = core.getVehicleFromId(vehicleAtFrontId);
             //2 vehicles now at hand, do the logic here
+            if(acid1(vehicle,vehicleAtFront)){
             acid1Counter++;
+            }
+            if(acid2(vehicle,vehicleAtFront)){
             acid2Counter++;
-
+            }
         }
 
+    }
+    
+    public boolean acid1(Vehicle vehicle, Vehicle vehicleAtFront){
+        int vehicleOldVel = vehicle.getOldVelocity();
+        int vehicleAtFrontOldVel = vehicleAtFront.getOldVelocity();
+        int vehicleAtFrontVel = vehicleAtFront.getVelocity();
+        int oldDistance = vehicle.getOldDistanceToFront();
+        int tal = 1;
+        boolean condition1 = (tal*vehicleOldVel)>oldDistance;
+        boolean condition2 = vehicleAtFrontOldVel >0;
+        boolean condition3 = vehicleAtFrontVel == 0;
+        
+        return condition1 && condition2 && condition3;
+    }
+    
+    public boolean acid2(Vehicle vehicle, Vehicle vehicleAtFront){
+        int vehicleOldVel = vehicle.getOldVelocity();
+        int vehicleAtFrontOldVel = vehicleAtFront.getOldVelocity();
+        int vehicleAtFrontVel = vehicleAtFront.getVelocity();
+        int oldDistance = vehicle.getOldDistanceToFront();
+        int tal = 1;
+        int vd = 2;
+        boolean condition1 = (tal*vehicleOldVel)>(oldDistance+vehicleAtFrontVel);
+        boolean condition2 = (vehicleAtFrontOldVel - vehicleAtFrontVel)>=vd ; 
+        
+        
+        return false;
     }
 
     public int[] getMeasures() {
