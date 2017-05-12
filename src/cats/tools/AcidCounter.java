@@ -60,7 +60,7 @@ public class AcidCounter {
         int oldDistance = vehicle.getOldDistanceToFront();
         int tal = 1;
         boolean condition1 = (tal*vehicleOldVel)>oldDistance;
-        boolean condition2 = vehicleAtFrontOldVel >0;
+        boolean condition2 = vehicleAtFrontOldVel > 0;
         boolean condition3 = vehicleAtFrontVel == 0;
         
         return condition1 && condition2 && condition3;
