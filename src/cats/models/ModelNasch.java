@@ -35,7 +35,7 @@ public class ModelNasch extends Model {
             newVel=newVel-acceleration;
         }
         
-       // newVel = min(newVel, distanceToFront);
+        //newVel = min(newVel, distanceToFront);
         
         //Gets the alpha to decide if its going to use acceletarion or not
 //        if (vehicle.getProfile().getFdpProvider().provide((int) vehicle.getCore().getParameters().getProbP())) {
