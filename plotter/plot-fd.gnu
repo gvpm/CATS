@@ -10,7 +10,7 @@ set xrange[0:100]
 set xlabel "Density"
 set ylabel "Flow"
  
-plot filename.txt using ($2):($1) w p t "Fluxo Densidade"
+plot filename.txt using ($2):($1) with points pointtype 7 pointsize 0.1 t "Fluxo Densidade"
 
 set terminal pdf color 
 
