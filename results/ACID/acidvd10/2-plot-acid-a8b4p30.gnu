@@ -2,13 +2,13 @@ reset
 set grid
 #set ytic 0.1
 #set xtic 0.1
-set yrange[0:0.03]
+set yrange[0:0.05]
 set xrange[0:100]
 set xlabel "Density"
 set ylabel "Accident Probability"
  
 
-plot "a8b4p30-acid.txt" using 1:8 title "a8b4p30 p=0.30" with points pointtype 1 
+plot "a8b4p30-acid.txt" using 1:8 title "a8b4p30 p=0.30" with points pointtype 1
 
 
 set terminal pdf color 
