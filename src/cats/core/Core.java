@@ -244,12 +244,12 @@ public class Core {
             int[] acidMeasures = acid.getMeasures();
             //Do more math and put more infor in this line
             int timeConsidered = simulationTime - discardTime - 1;
-            int dangerousSituations = (acidMeasures[0]+acidMeasures[1])-acidMeasures[2];
-            double acidProbability = ((double)dangerousSituations/(double)vehicles.size())/(double)timeConsidered;
-            double roundAcidProbability = (double) (Math.round(acidProbability  * 1000.0) / 1000.0);
-            double normalizedAcidProbability = acidProbability/((double)parameters.getProbP()/(double)100);
-            double roundNormalizedAcidProbability = (double) (Math.round(normalizedAcidProbability  * 1000.0) / 1000.0); 
-            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1],acidMeasures[2], vehicles.size(), timeConsidered,dangerousSituations,roundAcidProbability,parameters.getProbP(),roundNormalizedAcidProbability );
+            int dangerousSituations = (acidMeasures[0] + acidMeasures[1]) - acidMeasures[2];
+            double acidProbability = ((double) dangerousSituations / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcidProbability = (double) (Math.round(acidProbability * 1000.0) / 1000.0);
+            double normalizedAcidProbability = acidProbability / ((double) parameters.getProbP() / (double) 100);
+            double roundNormalizedAcidProbability = (double) (Math.round(normalizedAcidProbability * 1000.0) / 1000.0);
+            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], acidMeasures[2], vehicles.size(), timeConsidered, dangerousSituations, roundAcidProbability, parameters.getProbP(), roundNormalizedAcidProbability);
         }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
