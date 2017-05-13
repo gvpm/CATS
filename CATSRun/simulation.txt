@@ -9,15 +9,16 @@
 //- To log many densities separate them with ','
 //- EG: 0.11,0.12,0.13,0.2
 //- A Density such as 0.2 should not be 0.20
+//- = VELLOG Values: Same for PICTURELOG
 //-----------------------------------------------------
 SPEEDLIMIT:25
 PROBP:30
 SIMULATIONTIME:15000
 DISCARDTIME:10000
 STATISTICTIME:121
-INITIALDENSITY:0.09
+INITIALDENSITY:0.01
 DELTADENSITY:0.01
-FINALDENSITY:0.13
+FINALDENSITY:0.90
 CELLSINX:10000
 CELLSINY:1
 CELLSIZE:1.5
@@ -27,6 +28,7 @@ MODEL:nasch
 LOGNAME:naschp30
 PICTURELOG:0
 ACIDLOG:0
+VELLOG:0.1,0.3,0.7
 ENDOFPARAMETERS
 //-----------------------------------------------------
 //---------------------Profiles------------------------

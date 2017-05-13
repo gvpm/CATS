@@ -35,6 +35,7 @@ public class FileLoader {
     String logName;
     String pictureLog;
     int acidLog;
+    String velLog;
 
 //Profile Parameters
     String fdpProvider = "";
@@ -145,6 +146,12 @@ public class FileLoader {
                     //pictureLog = Integer.parseInt(sv[1]);
                     pictureLog = sv[1];
                     parameters.setPictureLog(pictureLog);
+
+                } else if (line.startsWith("VELLOG")) {
+                    String[] sv = line.split(":");
+                    //pictureLog = Integer.parseInt(sv[1]);
+                    velLog = sv[1];
+                    parameters.setVelLog(velLog);
 
                 } else if (line.startsWith("ACIDLOG")) {
                     String[] sv = line.split(":");

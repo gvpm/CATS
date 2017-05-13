@@ -7,6 +7,7 @@ import cats.loggers.Logger;
 import cats.fdps.FDPProviderUniform;
 import cats.fdps.FDPProvider;
 import cats.loggers.AcidLogger;
+import cats.loggers.VelLogger;
 import cats.models.ModelFactory;
 import cats.models.Model;
 import cats.tools.AcidCounter;
@@ -45,6 +46,8 @@ public class Core {
 //---------------ACID RELATED---------------------------
 //-------------------------------------------------------------
     PictureLogger picLogger;
+    VelLogger velLogger;
+
     //This is a general FDP Uniform Provider.
     FDPProvider generalFDPUniform;
 
@@ -159,6 +162,7 @@ public class Core {
         String roundDString = "" + roundD;
 
         String fileName = parameters.getLogName() + "-d" + roundD;
+        String fileNameVelLog = parameters.getLogName() + "-velLog-d" + roundD;
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
@@ -180,6 +184,17 @@ public class Core {
         }
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
+//------------------------------------------------------------- 
+//-------------------------------------------------------------        
+//---------------VEL LOG RELATED---------------------------
+//------------------------------------------------------------- 
+        //Creates a picture log for that density
+        //if (parameters.getPictureLog() == 1) {
+        if (parameters.getVelLog().contains(roundDString)) {
+            velLogger = new VelLogger(fileNameVelLog, roundD);
+        }
+//-------------------------------------------------------------        
+//---------------VEL LOG RELATED---------------------------
 //------------------------------------------------------------- 
 
         int simulationTime = parameters.getSimulationTime();
@@ -214,7 +229,19 @@ public class Core {
             }
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
+//-------------------------------------------------------------   
+
+//---------------VEL LOG RELATED---------------------------
 //-------------------------------------------------------------             
+            //Logs a line on velLogger
+            if ((i > discardTime)) {
+                if (parameters.getVelLog().contains(roundDString)) {
+                    velLogger.logALine(i, getVehicleFromId(1).getVelocity());
+                }
+            }
+//-------------------------------------------------------------        
+//---------------VEL LOG RELATED---------------------------
+//-------------------------------------------------------------  
 
 //-------------------------------------------------------------        
 //---------------------MAIN LOG RELATED------------------------
@@ -244,12 +271,12 @@ public class Core {
             int[] acidMeasures = acid.getMeasures();
             //Do more math and put more infor in this line
             int timeConsidered = simulationTime - discardTime - 1;
-            int dangerousSituations = (acidMeasures[0]+acidMeasures[1])-acidMeasures[2];
-            double acidProbability = ((double)dangerousSituations/(double)vehicles.size())/(double)timeConsidered;
-            double roundAcidProbability = (double) (Math.round(acidProbability  * 1000.0) / 1000.0);
-            double normalizedAcidProbability = acidProbability/((double)parameters.getProbP()/(double)100);
-            double roundNormalizedAcidProbability = (double) (Math.round(normalizedAcidProbability  * 1000.0) / 1000.0); 
-            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1],acidMeasures[2], vehicles.size(), timeConsidered,dangerousSituations,roundAcidProbability,parameters.getProbP(),roundNormalizedAcidProbability );
+            int dangerousSituations = (acidMeasures[0] + acidMeasures[1]) - acidMeasures[2];
+            double acidProbability = ((double) dangerousSituations / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcidProbability = (double) (Math.round(acidProbability * 1000.0) / 1000.0);
+            double normalizedAcidProbability = acidProbability / ((double) parameters.getProbP() / (double) 100);
+            double roundNormalizedAcidProbability = (double) (Math.round(normalizedAcidProbability * 1000.0) / 1000.0);
+            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], acidMeasures[2], vehicles.size(), timeConsidered, dangerousSituations, roundAcidProbability, parameters.getProbP(), roundNormalizedAcidProbability);
         }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
@@ -269,6 +296,18 @@ public class Core {
         }
 //-------------------------------------------------------------        
 //---------------PICTURE LOG RELATED---------------------------
+//------------------------------------------------------------- 
+
+//-------------------------------------------------------------        
+//---------------VEL LOG RELATED---------------------------
+//-------------------------------------------------------------         
+        //Closes the vel logger and converts to image
+        if (parameters.getVelLog().contains(roundDString)) {
+            velLogger.closeLogger();
+
+        }
+//-------------------------------------------------------------        
+//---------------VEL LOG RELATED---------------------------
 //------------------------------------------------------------- 
 
     }
