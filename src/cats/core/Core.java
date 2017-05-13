@@ -236,7 +236,9 @@ public class Core {
             //Logs a line on velLogger
             if ((i > discardTime)) {
                 if (parameters.getVelLog().contains(roundDString)) {
-                    velLogger.logALine(i, getVehicleFromId(1).getVelocity());
+                    float velToLog = this.getParameters().getCellSize() * (float) 3.6 * getVehicleFromId(1).getVelocity();
+                    float roundVelToLog = (float) (Math.round(velToLog * 10.0) / 10.0);
+                    velLogger.logALine(i, roundVelToLog);
                 }
             }
 //-------------------------------------------------------------        

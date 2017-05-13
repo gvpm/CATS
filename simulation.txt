@@ -27,8 +27,9 @@ MODEL:nasch
 //MODEL:tuff
 LOGNAME:naschp30
 PICTURELOG:0
-ACIDLOG:0
-VELLOG:0.01,0.1,0.11,0.3,0.31,0.7
+ACIDLOG:1
+VELLOG:0.01,0.1,0.3,0.7
+//VELLOG:0
 ENDOFPARAMETERS
 //-----------------------------------------------------
 //---------------------Profiles------------------------

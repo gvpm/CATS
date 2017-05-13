@@ -30,9 +30,9 @@ public class VelLogger {
 
     }
 
-    public void logALine(int time, int vel) {
+    public void logALine(int time, float vel) {
 
-        gravarArq.println(density + " " + time + " " + vel);
+        gravarArq.println(density + " " + time + " " + (int)vel);
         gravarArq.flush();
 
     }
