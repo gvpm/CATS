@@ -14,10 +14,10 @@ public class FDPProviderBeta extends FDPProvider {
         do {
             x = (float) Math.random();
 
-            y = Math.random() * getBeta(a, b, (float) getModa(a, b));
+            y = Math.random() * getBeta(a, b, getModa(a, b));
 
         } while (y > getBeta(a, b, x));
-
+       
         return x;
     }
 
@@ -43,7 +43,7 @@ public class FDPProviderBeta extends FDPProvider {
         return x;
     }
 
-    public static long fatorial(int num) {
+    public static double fatorial(double num) {
         if (num <= 1) {
             return 1;
         } else {
@@ -51,30 +51,34 @@ public class FDPProviderBeta extends FDPProvider {
         }
     }
 
-    public double getBeta(int a, int b, float x) {
+    public double getBeta(double a, double b, double x) {
+        
         double firstParcel = getFirstParcel(a, b);
         double secondParcel = getSecondParcel(a, b, x);
+       
 
         return firstParcel * secondParcel;
     }
 
-    public double getFirstParcel(int a, int b) {
+    public double getFirstParcel(double a, double b) {
+        
         return fatorial(a + b) / (fatorial(a) * fatorial(b));
     }
 
-    public double getSecondParcel(int a, int b, float x) {
+    public double getSecondParcel(double a, double b, double x) {
         double firstPart;
         double secondPart;
-        firstPart = Math.pow(x, a - 1);
-        secondPart = Math.pow(1 - x, b - 1);
+        firstPart = Math.pow(x, (a-1));
+        secondPart = Math.pow((1-x), (b-1));
+        
 
         return (double) (firstPart * secondPart);
 
     }
 
     public double getModa(int a1, int b1) {
-        float a = (float) a1;
-        float b = (float) b1;
+        double a = (double) a1;
+        double b = (double) b1;
 
         if (a > 1 && b > 1) {
             return (a - 1) / (a + b - 2);

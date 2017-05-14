@@ -9,6 +9,7 @@
 //- To log many densities separate them with ','
 //- EG: 0.11,0.12,0.13,0.2
 //- A Density such as 0.2 should not be 0.20
+//- = VELLOG Values: Same for PICTURELOG
 //-----------------------------------------------------
 SPEEDLIMIT:25
 PROBP:30
@@ -22,12 +23,13 @@ CELLSINX:10000
 CELLSINY:1
 CELLSIZE:1.5
 DEFAULTCARSIZE:7.5
-MODEL:naschWithBeta
+MODEL:nasch
 //MODEL:tuff
-LOGNAME:a1b20p30
+LOGNAME:naschp30
 PICTURELOG:0
 ACIDLOG:1
-VELLOG:0.01,0.1,0.3
+VELLOG:0.01,0.1,0.3,0.7
+//VELLOG:0
 ENDOFPARAMETERS
 //-----------------------------------------------------
 //---------------------Profiles------------------------
@@ -36,7 +38,7 @@ ENDOFPARAMETERS
 //- = Copy all the Profile Parameters for a new Profile
 //- = Sum of all PERCENTAGEOCCURRENCE must be 1
 //-----------------------------------------------------
-FDPPROVIDER:beta
+FDPPROVIDER:uniform
 NAME:NaschBasic
 SIZE:5
 VELMAX:25
@@ -44,10 +46,10 @@ AHEAD:0
 SAFEDISTANCE:0
 VELINCREMENT:5
 PERCENTAGEOCCURRENCE:1
-ALPHAACC:1
-BETAACC:20
-ALPHAANT:1
-BETAANT:20
+ALPHAACC:8
+BETAACC:4
+ALPHAANT:8
+BETAANT:4
 ENDOFPROFILE
 
 
