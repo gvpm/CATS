@@ -35,6 +35,7 @@ public class ModelNaschWithBeta extends Model {
         //The acceleration set in the cars profile is multiplied by a number between 0 and 1.
 
         int calculatedAcceletarion = (int) Math.floor((acceleration + 1) * (1 - roundA));
+        //int calculatedAcceletarion = (int) Math.floor((acceleration + 1) * (1 - 0));
         calculatedAcceletarion = min(acceleration, calculatedAcceletarion);
         //New Velocity is calculated.
         //This new value is added to the current velocity of the car.

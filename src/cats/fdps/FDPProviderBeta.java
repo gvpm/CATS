@@ -17,7 +17,7 @@ public class FDPProviderBeta extends FDPProvider {
             y = Math.random() * getBeta(a, b, getModa(a, b));
 
         } while (y > getBeta(a, b, x));
-       
+
         return x;
     }
 
@@ -35,6 +35,7 @@ public class FDPProviderBeta extends FDPProvider {
             System.out.println("\n");
 
         } while (y > getBeta(a, b, x));
+        System.out.println("Sorteio Escolhido");
         System.out.println("\n");
         System.out.println("x: " + x);
         System.out.println("f(x): " + getBeta(a, b, x));
@@ -52,25 +53,23 @@ public class FDPProviderBeta extends FDPProvider {
     }
 
     public double getBeta(double a, double b, double x) {
-        
+
         double firstParcel = getFirstParcel(a, b);
         double secondParcel = getSecondParcel(a, b, x);
-       
 
         return firstParcel * secondParcel;
     }
 
     public double getFirstParcel(double a, double b) {
-        
+
         return fatorial(a + b) / (fatorial(a) * fatorial(b));
     }
 
     public double getSecondParcel(double a, double b, double x) {
         double firstPart;
         double secondPart;
-        firstPart = Math.pow(x, (a-1));
-        secondPart = Math.pow((1-x), (b-1));
-        
+        firstPart = Math.pow(x, (a - 1));
+        secondPart = Math.pow((1 - x), (b - 1));
 
         return (double) (firstPart * secondPart);
 
