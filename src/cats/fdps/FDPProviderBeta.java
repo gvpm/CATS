@@ -62,7 +62,7 @@ public class FDPProviderBeta extends FDPProvider {
 
     public double getFirstParcel(double a, double b) {
 
-        return fatorial(a + b) / (fatorial(a) * fatorial(b));
+        return fatorial((a + b)-1) / (fatorial(a-1) * fatorial(b-1));
     }
 
     public double getSecondParcel(double a, double b, double x) {
