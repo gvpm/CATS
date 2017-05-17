@@ -203,7 +203,7 @@ public class Core {
         int logTimeCounter = 0;
 
         //One step for each second  stated in simulation time
-        for (int i = 0; i < simulationTime; i++) {
+        for (int i = 0; i <= simulationTime; i++) {
 
             iterate();
 
@@ -272,7 +272,7 @@ public class Core {
 //When the density is created I will log a line in the acidlog
             int[] acidMeasures = acid.getMeasures();
             //Do more math and put more infor in this line
-            int timeConsidered = simulationTime - discardTime - 1;
+            int timeConsidered = simulationTime - discardTime;
             int dangerousSituations = (acidMeasures[0] + acidMeasures[1]) - acidMeasures[2];
             double acidProbability = ((double) dangerousSituations / (double) vehicles.size()) / (double) timeConsidered;
             double roundAcidProbability = (double) (Math.round(acidProbability * 1000.0) / 1000.0);
