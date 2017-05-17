@@ -37,7 +37,7 @@ public class BetaTester {
         //for (int i = 0; i < 100; i++) {
         //    float j = (float) i / 100;
         while (j < 1.000) {
-            double beta = b.getBeta(8, 4, j);
+            double beta = b.getBeta(1, 40, j);
             float roundB = (float) (Math.round(beta * 100.0) / 100.0);
 
             gravarArq.println(j + " " + roundB);
