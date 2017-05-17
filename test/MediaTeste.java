@@ -24,8 +24,8 @@ public class MediaTeste {
         FileWriter arq = null;
         PrintWriter gravarArq;
         List<Float> list = new ArrayList<>();
-        fileName = "MeadiaTeste1-40";
-        
+        fileName = "MeadiaTeste1-70";
+
         try {
             arq = new FileWriter(fileName + ".txt");
 
@@ -40,8 +40,12 @@ public class MediaTeste {
         //for (int i = 0; i < 100; i++) {
         //    float j = (float) i / 100;
         while (j < 15000) {
-            double beta = b.provide(1, 40);
+            double beta = b.provide(1, 70);
             float roundB = (float) (Math.round(beta * 100.0) / 100.0);
+            if (roundB > 0.16) {
+                System.out.println("AHHHHHHH");
+            }
+
             //System.out.println(roundB);
             list.add(roundB);
             gravarArq.println(roundB);
@@ -52,16 +56,16 @@ public class MediaTeste {
 
         //}
         gravarArq.close();
-        
+
         double sum = 0;
         for (int i = 0; i < list.size(); i++) {
             sum += list.get(i);
-            
+
         }
-        double average = sum/list.size();
+        double average = sum / list.size();
         System.out.println(average);
         System.out.println(b.getBeta(1, 40, average));
-        
+
     }
 
 }
