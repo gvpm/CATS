@@ -28,8 +28,8 @@ public class AcidLogger {
 
     }
 
-    public void logALine(float density, int acid1, int acid2, int acid3, int nOfCars, int timeConsidered, int dangerousSituations, double acidProbability, float probP, double normalizedAcidProbability) {
-        gravarArq.println((int) density + " " + acid1 + " " + acid2 + " " + acid3 + " " + nOfCars + " " + timeConsidered + " " + dangerousSituations + " " + acidProbability + " " + probP + " " + normalizedAcidProbability);
+    public void logALine(float density, int acid1, int acid2, int acid3, int nOfCars, int timeConsidered, int dangerousSituations, double acidProbability, float probP, double normalizedAcidProbability,double acid1Probability,double acid2Probability) {
+        gravarArq.println((int) density + " " + acid1 + " " + acid2 + " " + acid3 + " " + nOfCars + " " + timeConsidered + " "+ timeConsidered + " " + dangerousSituations + " " + acidProbability + " " + probP + " " + normalizedAcidProbability+ " " + acid1Probability+ " " + acid2Probability);
         gravarArq.flush();
 
     }

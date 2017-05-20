@@ -1,7 +1,7 @@
 package cats.core;
 
 import cats.tools.IterationCallable;
-import cats.tools.DataExtractor;
+import cats.tools.MainDataExtractor;
 import cats.loggers.PictureLogger;
 import cats.loggers.Logger;
 import cats.fdps.FDPProviderUniform;
@@ -34,7 +34,7 @@ public class Core {
     SimulationParameters parameters;
 
     Model model;
-    DataExtractor dataExtractor;
+    MainDataExtractor mainDataExtractor;
     AcidCounter acid;
 
     Logger logger;
@@ -77,7 +77,7 @@ public class Core {
         ModelFactory modelFactory = new ModelFactory();
         model = modelFactory.fabricate(parameters.getModel());
         //Creates a data extractor, will provide the information to be logged.
-        dataExtractor = new DataExtractor(this);
+        mainDataExtractor = new MainDataExtractor(this);
         //Will log information 
         logger = new Logger(parameters.getLogName());
 //-------------------------------------------------------------        
@@ -203,6 +203,9 @@ public class Core {
         int logTimeCounter = 0;
 
         //One step for each second  stated in simulation time
+        //restart flow and averagevel sum counters
+        mainDataExtractor.restartSumCounters();
+        
         for (int i = 0; i <= simulationTime; i++) {
 
             iterate();
@@ -251,9 +254,13 @@ public class Core {
             //Will log every statisticTime, no logging the  initial discardTime
             if ((i > discardTime)) {
                 logTimeCounter++;
+                //Everu step it measures and adds to the sum.
+                mainDataExtractor.measure(roundD*100);
+                
                 if ((logTimeCounter == statisticTime)) {
-
-                    logger.logALine(dataExtractor.getFlow(roundD * 100), roundD * 100, dataExtractor.getAvgVel());
+                    //every statistic time takes the average of the sum and logs
+                    float[] measures = mainDataExtractor.getResults();
+                    logger.logALine(measures[0], roundD * 100, measures[1]);
                     logTimeCounter = 0;
                 }
 
@@ -263,8 +270,10 @@ public class Core {
 //------------------------------------------------------------- 
 
         }
+        
 //-----------------END OF DENSITY SIMULATION--------------------  
-
+        //restart flow and averagevel sum counters
+        mainDataExtractor.restartSumCounters();
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
@@ -276,9 +285,16 @@ public class Core {
             int dangerousSituations = (acidMeasures[0] + acidMeasures[1]) - acidMeasures[2];
             double acidProbability = ((double) dangerousSituations / (double) vehicles.size()) / (double) timeConsidered;
             double roundAcidProbability = (double) (Math.round(acidProbability * 1000.0) / 1000.0);
+            
+            double acid1Probability = ((double) acidMeasures[0] / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcid1Probability = (double) (Math.round(acid1Probability * 1000.0) / 1000.0);
+            
+            double acid2Probability = ((double) acidMeasures[1] / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcid2Probability = (double) (Math.round(acid2Probability * 1000.0) / 1000.0);
+            
             double normalizedAcidProbability = acidProbability / ((double) parameters.getProbP() / (double) 100);
             double roundNormalizedAcidProbability = (double) (Math.round(normalizedAcidProbability * 1000.0) / 1000.0);
-            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], acidMeasures[2], vehicles.size(), timeConsidered, dangerousSituations, roundAcidProbability, parameters.getProbP(), roundNormalizedAcidProbability);
+            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], acidMeasures[2], vehicles.size(), timeConsidered, dangerousSituations, roundAcidProbability, parameters.getProbP(), roundNormalizedAcidProbability,roundAcid1Probability,roundAcid2Probability);
         }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
