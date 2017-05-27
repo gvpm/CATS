@@ -241,7 +241,7 @@ public class Core {
                 if (parameters.getVelLog().contains(roundDString)) {
                     float velToLog = this.getParameters().getCellSize() * (float) 3.6 * getVehicleFromId(1).getVelocity();
                     float roundVelToLog = (float) (Math.round(velToLog * 10.0) / 10.0);
-                    velLogger.logALine(i, roundVelToLog);
+                    velLogger.logALine(i, roundVelToLog, mainDataExtractor.getAvgVel());
                 }
             }
 //-------------------------------------------------------------        

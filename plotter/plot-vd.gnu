@@ -10,8 +10,8 @@ set xrange[0:100]
 set xlabel "Density"
 set ylabel "AvgVel km/h"
  
-#plot filename.txt using ($2):($3) with points pointtype 7 pointsize 0.1 t "Velocidade/Densidade"
-plot filename.txt using ($2):($3) with points pointtype 1 t "Velocidade/Densidade"
+plot filename.txt using ($2):($3) with points pointtype 7 pointsize 0.1 t "Velocidade/Densidade"
+#plot filename.txt using ($2):($3) with points pointtype 1 t "Velocidade/Densidade"
 
 set terminal pdf color 
 
