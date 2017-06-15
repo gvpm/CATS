@@ -1,7 +1,7 @@
 package cats.models;
 
 import cats.core.Grid;
-import cats.core.Vehicle;
+import cats.dataModels.Vehicle;
 
 /**
  * Implements the TUFF Model

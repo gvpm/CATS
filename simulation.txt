@@ -1,0 +1,55 @@
+//-----------------------------------------------------
+//-----------------Simulation Parameters---------------
+//-----------------------------------------------------
+//- = MODEL Values (nasch,naschWithBeta)
+//- = ACIDLOG Values (0 No log. 1 to log)
+//- = PICTURELOG Values: 
+//- You can set the densities you want the picLog.
+//- Just write the density with a dot eg: 0.1
+//- To log many densities separate them with ','
+//- EG: 0.11,0.12,0.13,0.2
+//- A Density such as 0.2 should not be 0.20
+//- = VELLOG Values: Same for PICTURELOG
+//-----------------------------------------------------
+SPEEDLIMIT:25
+PROBP:30
+SIMULATIONTIME:15000
+DISCARDTIME:10000
+STATISTICTIME:121
+INITIALDENSITY:0.01
+DELTADENSITY:0.01
+FINALDENSITY:0.90
+CELLSINX:10000
+CELLSINY:1
+CELLSIZE:1.5
+DEFAULTCARSIZE:7.5
+MODEL:nasch
+//MODEL:tuff
+LOGNAME:naschp30
+PICTURELOG:0
+ACIDLOG:1
+//VELLOG:0.01,0.1,0.11,0.3,0.31,0.7
+VELLOG:0
+ENDOFPARAMETERS
+//-----------------------------------------------------
+//---------------------Profiles------------------------
+//-----------------------------------------------------
+//- = FDPPROVIDER Values: (uniform,beta)
+//- = Copy all the Profile Parameters for a new Profile
+//- = Sum of all PERCENTAGEOCCURRENCE must be 1
+//-----------------------------------------------------
+FDPPROVIDER:uniform
+NAME:NaschBasic
+SIZE:5
+VELMAX:25
+AHEAD:0
+SAFEDISTANCE:0
+VELINCREMENT:5
+PERCENTAGEOCCURRENCE:1
+ALPHAACC:8
+BETAACC:4
+ALPHAANT:8
+BETAANT:4
+ENDOFPROFILE
+
+

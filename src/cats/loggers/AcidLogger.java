@@ -1,5 +1,6 @@
 package cats.loggers;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,9 +18,14 @@ public class AcidLogger {
 
     public AcidLogger(String fileName) {
         this.fileName = fileName;
+        
+
+        
 
         try {
+            
             arq = new FileWriter(fileName + ".txt");
+            
 
         } catch (IOException ex) {
 

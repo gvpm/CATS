@@ -1,7 +1,7 @@
 package cats.tools;
 
 import cats.core.Core;
-import cats.core.Vehicle;
+import cats.dataModels.Vehicle;
 import java.util.ArrayList;
 
 /**

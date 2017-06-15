@@ -1,9 +1,11 @@
-package cats.core;
+package cats.dataModels;
 
 import cats.fdps.FDPProviderFactory;
 import cats.fdps.FDPProvider;
 import com.fasterxml.jackson.annotation.JsonCreator;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class Profile {
 

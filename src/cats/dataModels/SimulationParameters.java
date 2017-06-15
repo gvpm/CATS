@@ -1,12 +1,14 @@
-package cats.core;
+package cats.dataModels;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Responsible to store all the simulation parameters. It will be given to Core
  * class, and here all the simulation parameters will be stored.
  *
  */
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class SimulationParameters {
 
     int speedLimit;

@@ -1,8 +1,8 @@
-package cats.interfaces;
+package cats.json;
 
 import cats.core.Core;
-import cats.core.Profile;
-import cats.core.SimulationParameters;
+import cats.dataModels.Profile;
+import cats.dataModels.SimulationParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -15,22 +15,29 @@ import java.util.concurrent.ExecutionException;
  */
 public class JsonInterface {
 
-    public void run(String Jparameters, String Jprofile) throws ExecutionException, InterruptedException {
+    public void run(String jsonAll) throws ExecutionException, InterruptedException {
         ObjectMapper mapper = new ObjectMapper();
         Core core;
         SimulationParameters parameters;
         Profile profile;
+        JsonModel jsonModel;
 
         try {
 
             // Convert JSON string to Object
-            parameters = mapper.readValue(Jparameters, SimulationParameters.class);
-            profile = mapper.readValue(Jprofile, Profile.class);
+            //parameters = mapper.readValue(jsonAll, SimulationParameters.class);
+            //profile = mapper.readValue(jsonAll, Profile.class);
+            jsonModel = mapper.readValue(jsonAll, JsonModel.class);
 
             core = new Core();
-            core.setParameters(parameters);
-            //profile.mount();
-            core.addProfile(profile);
+            //core.setParameters(parameters);
+            core.setParameters(jsonModel.getSimulationParameters());
+            //core.addProfile(profile);
+            for (int i = 0; i < jsonModel.getProfiles().size(); i++) {
+                core.addProfile(jsonModel.getProfiles().get(i));
+                
+            }
+            //core.addProfile(jsonModel.getProfile());
 
             core.init();
             core.simulateAllDensities();

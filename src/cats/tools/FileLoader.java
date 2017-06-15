@@ -1,7 +1,7 @@
 package cats.tools;
 
 import cats.core.Core;
-import cats.core.SimulationParameters;
+import cats.dataModels.SimulationParameters;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

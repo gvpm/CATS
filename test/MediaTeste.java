@@ -1,5 +1,5 @@
 
-import cats.core.Vehicle;
+import cats.dataModels.Vehicle;
 import cats.fdps.FDPProviderBeta;
 import java.io.FileWriter;
 import java.io.IOException;

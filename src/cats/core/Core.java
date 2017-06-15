@@ -1,5 +1,8 @@
 package cats.core;
 
+import cats.dataModels.SimulationParameters;
+import cats.dataModels.Vehicle;
+import cats.dataModels.Profile;
 import cats.tools.IterationCallable;
 import cats.tools.MainDataExtractor;
 import cats.loggers.PictureLogger;
@@ -11,6 +14,7 @@ import cats.loggers.VelLogger;
 import cats.models.ModelFactory;
 import cats.models.Model;
 import cats.tools.AcidCounter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -74,6 +78,8 @@ public class Core {
 
     //Initializes the core.
     public void init() {
+        File dir = new File(parameters.getLogName());
+        dir.mkdir();
 
         //Creates the model to be applied in the cars, using a factory.
         ModelFactory modelFactory = new ModelFactory();

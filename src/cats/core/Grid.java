@@ -1,5 +1,6 @@
 package cats.core;
 
+import cats.dataModels.Vehicle;
 import java.util.ArrayList;
 import java.util.Random;
 

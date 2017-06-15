@@ -1,7 +1,7 @@
 package cats.interfaces;
 
 import cats.core.Core;
-import cats.core.SimulationParameters;
+import cats.dataModels.SimulationParameters;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JTextArea;
 
