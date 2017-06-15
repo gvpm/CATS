@@ -35,9 +35,11 @@ public class Core {
 
     Model model;
     MainDataExtractor mainDataExtractor;
+    MainDataExtractor oneEachDensDataExtractor;
     AcidCounter acid;
 
     Logger logger;
+    Logger oneEachDensLogger;
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //-------------------------------------------------------------
@@ -78,8 +80,10 @@ public class Core {
         model = modelFactory.fabricate(parameters.getModel());
         //Creates a data extractor, will provide the information to be logged.
         mainDataExtractor = new MainDataExtractor(this);
+        oneEachDensDataExtractor = new MainDataExtractor(this);
         //Will log information 
         logger = new Logger(parameters.getLogName());
+        oneEachDensLogger = new Logger(parameters.getLogName()+"-1p");
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //-------------------------------------------------------------
@@ -135,6 +139,14 @@ public class Core {
         logger.closeLogger();
 //-------------------------------------------------------------        
 //---------------------MAIN LOG RELATED------------------------
+//-------------------------------------------------------------
+//-------------------------------------------------------------        
+//--------------------- ONE EACH DENS LOG RELATED------------------------
+//-------------------------------------------------------------
+        //Closing the log here.
+        oneEachDensLogger.closeLogger();
+//-------------------------------------------------------------        
+//---------------------ONE EACH DENS LOG RELATED------------------------
 //-------------------------------------------------------------
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
@@ -205,6 +217,7 @@ public class Core {
         //One step for each second  stated in simulation time
         //restart flow and averagevel sum counters
         mainDataExtractor.restartSumCounters();
+        oneEachDensDataExtractor.restartSumCounters();
         
         for (int i = 0; i <= simulationTime; i++) {
 
@@ -241,7 +254,11 @@ public class Core {
                 if (parameters.getVelLog().contains(roundDString)) {
                     float velToLog = this.getParameters().getCellSize() * (float) 3.6 * getVehicleFromId(1).getVelocity();
                     float roundVelToLog = (float) (Math.round(velToLog * 10.0) / 10.0);
-                    velLogger.logALine(i, roundVelToLog, mainDataExtractor.getAvgVel());
+                    float velToLog2 = this.getParameters().getCellSize() * (float) 3.6 * getVehicleFromId(2).getVelocity();
+                    float roundVelToLog2 = (float) (Math.round(velToLog2 * 10.0) / 10.0);
+                    float velToLog3 = this.getParameters().getCellSize() * (float) 3.6 * getVehicleFromId(3).getVelocity();
+                    float roundVelToLog3 = (float) (Math.round(velToLog3 * 10.0) / 10.0);
+                    velLogger.logALine(i, roundVelToLog,roundVelToLog2, roundVelToLog3,  mainDataExtractor.getAvgVel());
                 }
             }
 //-------------------------------------------------------------        
@@ -269,11 +286,33 @@ public class Core {
 //---------------------MAIN LOG RELATED------------------------
 //------------------------------------------------------------- 
 
+//-------------------------------------------------------------        
+//---------------------ONE EACH DENS LOG RELATED------------------------
+//------------------------------------------------------------- 
+            //Will log every statisticTime, no logging the  initial discardTime
+            if ((i > discardTime)) {
+                
+                //Everu step it measures and adds to the sum.
+                oneEachDensDataExtractor.measure(roundD*100);
+                
+                if ( i == simulationTime) {
+                    //every statistic time takes the average of the sum and logs
+                    float[] measures2 = oneEachDensDataExtractor.getResults();
+                    oneEachDensLogger.logALine(measures2[0], roundD * 100, measures2[1]);
+                  
+                }
+
+            }
+//-------------------------------------------------------------        
+//---------------------ONE EACH DENS LOG RELATED------------------------
+//------------------------------------------------------------- 
+
         }
         
 //-----------------END OF DENSITY SIMULATION--------------------  
         //restart flow and averagevel sum counters
         mainDataExtractor.restartSumCounters();
+        oneEachDensDataExtractor.restartSumCounters();
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
@@ -284,17 +323,20 @@ public class Core {
             int timeConsidered = simulationTime - discardTime;
             int dangerousSituations = (acidMeasures[0] + acidMeasures[1]) - acidMeasures[2];
             double acidProbability = ((double) dangerousSituations / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcidProbability = (double) (Math.round(acidProbability * 1000.0) / 1000.0);
+            double roundAcidProbability = (double) (Math.round(acidProbability * 1000000.000) / 1000000.000);
             
             double acid1Probability = ((double) acidMeasures[0] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid1Probability = (double) (Math.round(acid1Probability * 1000.0) / 1000.0);
+            double roundAcid1Probability = (double) (Math.round(acid1Probability * 1000000.000) / 1000000.000);
             
             double acid2Probability = ((double) acidMeasures[1] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid2Probability = (double) (Math.round(acid2Probability * 1000.0) / 1000.0);
+            double roundAcid2Probability = (double) (Math.round(acid2Probability * 1000000.000) / 1000000.000);
+            
+            double acid3Probability = ((double) acidMeasures[2] / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcid3Probability = (double) (Math.round(acid3Probability * 1000000.000) / 1000000.000);
             
             double normalizedAcidProbability = acidProbability / ((double) parameters.getProbP() / (double) 100);
             double roundNormalizedAcidProbability = (double) (Math.round(normalizedAcidProbability * 1000.0) / 1000.0);
-            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], acidMeasures[2], vehicles.size(), timeConsidered, dangerousSituations, roundAcidProbability, parameters.getProbP(), roundNormalizedAcidProbability,roundAcid1Probability,roundAcid2Probability);
+            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], acidMeasures[2], vehicles.size(), timeConsidered, dangerousSituations, roundAcidProbability, parameters.getProbP(), roundNormalizedAcidProbability,roundAcid1Probability,roundAcid2Probability,roundAcid3Probability);
         }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
