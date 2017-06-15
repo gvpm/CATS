@@ -1,5 +1,7 @@
 package cats.core;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * Responsible to store all the simulation parameters. It will be given to Core
  * class, and here all the simulation parameters will be stored.
@@ -45,6 +47,7 @@ public class SimulationParameters {
         this.velLog = velLog;
     }
 
+    @JsonCreator
     public SimulationParameters() {
     }
 

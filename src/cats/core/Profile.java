@@ -2,31 +2,44 @@ package cats.core;
 
 import cats.fdps.FDPProviderFactory;
 import cats.fdps.FDPProvider;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Responsible to store all the profiles information. Core will have an
- * arrayList of profiles.
- *
- * @author
- */
 public class Profile {
 
-    FDPProvider fdpProvider;
+    @JsonProperty("fdpProviderString")
+    String fdpProviderString;
+    @JsonProperty("name")
     String name;
+    @JsonProperty("size")
     int size;
+    @JsonProperty("velMax")
     int velMax;
+    @JsonProperty("ahead")
     int ahead;
+    @JsonProperty("safeDistance")
     int safeDistance;
+    @JsonProperty("velIncrement")
     int velIncrement;
+    @JsonProperty("percentageOccurrence")
     double percentageOccurrence;
+    @JsonProperty("alphaAcc")
     float alphaAcc;
+    @JsonProperty("betaAcc")
     float betaAcc;
+    @JsonProperty("alphaAnt")
     float alphaAnt;
+    @JsonProperty("betaAnt")
     float betaAnt;
+    FDPProvider fdpProvider;
+    FDPProviderFactory fdpFactory = new FDPProviderFactory();
 
-    public Profile(String fdpProvider, String name, int size, int velMax, int ahead, int safeDistance, int velIncrement, double percentageOccurrence, float alphaAcc, float betaAcc, float alphaAnt, float betaAnt) {
-        FDPProviderFactory fdpFactory = new FDPProviderFactory();
-        this.fdpProvider = fdpFactory.fabricate(fdpProvider);
+    @JsonCreator
+    public Profile() {
+    }
+
+    public Profile(String fdpProviderString, String name, int size, int velMax, int ahead, int safeDistance, int velIncrement, double percentageOccurrence, float alphaAcc, float betaAcc, float alphaAnt, float betaAnt) {
+        this.fdpProviderString = fdpProviderString;
         this.name = name;
         this.size = size;
         this.velMax = velMax;
@@ -38,14 +51,18 @@ public class Profile {
         this.betaAcc = betaAcc;
         this.alphaAnt = alphaAnt;
         this.betaAnt = betaAnt;
+        this.fdpFactory = new FDPProviderFactory();
+        this.fdpProvider = fdpFactory.fabricate(fdpProviderString);
     }
 
-    public FDPProvider getFdpProvider() {
-        return fdpProvider;
+    public String getFdpProviderString() {
+        return fdpProviderString;
     }
 
-    public void setFdpProvider(FDPProvider fdpProvider) {
-        this.fdpProvider = fdpProvider;
+    public void setFdpProviderString(String fdpProviderString) {
+        this.fdpFactory = new FDPProviderFactory();
+        this.fdpProvider = fdpFactory.fabricate(fdpProviderString);
+        this.fdpProviderString = fdpProviderString;
     }
 
     public String getName() {
@@ -100,7 +117,7 @@ public class Profile {
         return percentageOccurrence;
     }
 
-    public void setPercentageOccurrence(int percentageOccurrence) {
+    public void setPercentageOccurrence(double percentageOccurrence) {
         this.percentageOccurrence = percentageOccurrence;
     }
 
@@ -134,6 +151,22 @@ public class Profile {
 
     public void setBetaAnt(float betaAnt) {
         this.betaAnt = betaAnt;
+    }
+
+    public FDPProvider getFdpProvider() {
+        return fdpProvider;
+    }
+
+    public void setFdpProvider(FDPProvider fdpProvider) {
+        this.fdpProvider = fdpProvider;
+    }
+
+    public FDPProviderFactory getFdpFactory() {
+        return fdpFactory;
+    }
+
+    public void setFdpFactory(FDPProviderFactory fdpFactory) {
+        this.fdpFactory = fdpFactory;
     }
 
     @Override

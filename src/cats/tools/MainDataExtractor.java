@@ -16,36 +16,34 @@ public class MainDataExtractor {
 
     public MainDataExtractor(Core core) {
         this.core = core;
-        flowSum=0;
-        avgVelSum=0;
-        sumAccumulator=0;
+        flowSum = 0;
+        avgVelSum = 0;
+        sumAccumulator = 0;
     }
-    
-    public void restartSumCounters(){
-        flowSum=0;
-        avgVelSum=0;
-        sumAccumulator=0;
-        
+
+    public void restartSumCounters() {
+        flowSum = 0;
+        avgVelSum = 0;
+        sumAccumulator = 0;
+
     }
-    
-    public float[] getResults(){
-        float[] results =  new float[2];
-        
-        results[0]=flowSum/sumAccumulator;
-        results[1]=avgVelSum/sumAccumulator;
-        
+
+    public float[] getResults() {
+        float[] results = new float[2];
+
+        results[0] = flowSum / sumAccumulator;
+        results[1] = avgVelSum / sumAccumulator;
+
         restartSumCounters();
         return results;
-        
+
     }
-    
-    
-    public void measure(float density){
-        flowSum+=getFlow(density);
-        avgVelSum+=getAvgVel();
-        sumAccumulator++;        
-        
-        
+
+    public void measure(float density) {
+        flowSum += getFlow(density);
+        avgVelSum += getAvgVel();
+        sumAccumulator++;
+
     }
 
     public float getFlow(float density) {
