@@ -7,15 +7,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import java.io.IOException;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 /**
  *
  * @author gvpm
  */
-public class JsonInterface {
+public class JsonInterface implements Callable<Integer> {
 
-    public void run(String jsonAll) throws ExecutionException, InterruptedException {
+    String jsonAll;
+
+    public JsonInterface(String jsonAll) {
+        this.jsonAll = jsonAll;
+    }
+
+    @Override
+    public Integer call() {
         ObjectMapper mapper = new ObjectMapper();
         Core core;
         SimulationParameters parameters;
@@ -25,19 +33,16 @@ public class JsonInterface {
         try {
 
             // Convert JSON string to Object
-            //parameters = mapper.readValue(jsonAll, SimulationParameters.class);
-            //profile = mapper.readValue(jsonAll, Profile.class);
             jsonModel = mapper.readValue(jsonAll, JsonModel.class);
 
             core = new Core();
-            //core.setParameters(parameters);
+
             core.setParameters(jsonModel.getSimulationParameters());
-            //core.addProfile(profile);
+
             for (int i = 0; i < jsonModel.getProfiles().size(); i++) {
                 core.addProfile(jsonModel.getProfiles().get(i));
-                
+
             }
-            //core.addProfile(jsonModel.getProfile());
 
             core.init();
             core.simulateAllDensities();
@@ -45,13 +50,14 @@ public class JsonInterface {
         } catch (JsonGenerationException e) {
             System.out.println(e);
 
-        } catch (JsonMappingException e) {
+        } catch (JsonMappingException | ExecutionException | InterruptedException e) {
             System.out.println(e);
 
         } catch (IOException e) {
             System.out.println(e);
         }
 
+        return 1;
     }
 
 }

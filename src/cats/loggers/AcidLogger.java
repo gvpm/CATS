@@ -18,14 +18,10 @@ public class AcidLogger {
 
     public AcidLogger(String fileName) {
         this.fileName = fileName;
-        
-
-        
 
         try {
-            
+
             arq = new FileWriter(fileName + ".txt");
-            
 
         } catch (IOException ex) {
 

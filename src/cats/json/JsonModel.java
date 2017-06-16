@@ -16,11 +16,12 @@ import java.util.List;
  * @author gvpm
  */
 public class JsonModel {
+
     @JsonProperty("simulationParameters")
     SimulationParameters simulationParameters;
     @JsonProperty("profiles")
     List<Profile> profiles;
-    
+
     @JsonCreator
     public JsonModel() {
     }
@@ -41,8 +42,4 @@ public class JsonModel {
         this.profiles = profiles;
     }
 
-
-    
-    
-    
 }
