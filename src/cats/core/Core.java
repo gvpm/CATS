@@ -340,9 +340,40 @@ public class Core {
             double acid3Probability = ((double) acidMeasures[2] / (double) vehicles.size()) / (double) timeConsidered;
             double roundAcid3Probability = (double) (Math.round(acid3Probability * 1000000.000) / 1000000.000);
 
+            
+            
+            double acid1_vf2Probability = ((double) acidMeasures[3] / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcid1_vf2Probability = (double) (Math.round(acid1_vf2Probability * 1000000.000) / 1000000.000);
+
+            
+            double acid1_vf3Probability = ((double) acidMeasures[4] / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcid1_vf3Probability = (double) (Math.round(acid1_vf3Probability * 1000000.000) / 1000000.000);
+
+            double acid1_vf4Probability = ((double) acidMeasures[5] / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcid1_vf4Probability = (double) (Math.round(acid1_vf4Probability * 1000000.000) / 1000000.000);
+            
+            double acid1_vf5Probability = ((double) acidMeasures[6] / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcid1_vf5Probability = (double) (Math.round(acid1_vf5Probability * 1000000.000) / 1000000.000);
+            
+            double acid1_vf6Probability = ((double) acidMeasures[7] / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcid1_vf6Probability = (double) (Math.round(acid1_vf6Probability * 1000000.000) / 1000000.000);
+            
+            double acid4Probability = ((double) acidMeasures[8] / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcid4Probability = (double) (Math.round(acid4Probability * 1000000.000) / 1000000.000);
+            
+            double acid5Probability = ((double) acidMeasures[9] / (double) vehicles.size()) / (double) timeConsidered;
+            double roundAcid5Probability = (double) (Math.round(acid5Probability * 1000000.000) / 1000000.000);
+            
+            
             double normalizedAcidProbability = acidProbability / ((double) parameters.getProbP() / (double) 100);
             double roundNormalizedAcidProbability = (double) (Math.round(normalizedAcidProbability * 1000.0) / 1000.0);
-            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], acidMeasures[2], vehicles.size(), timeConsidered, dangerousSituations, roundAcidProbability, parameters.getProbP(), roundNormalizedAcidProbability, roundAcid1Probability, roundAcid2Probability, roundAcid3Probability);
+            
+            
+            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], acidMeasures[2], vehicles.size(),
+                    timeConsidered, dangerousSituations, roundAcidProbability, parameters.getProbP(),
+                    roundNormalizedAcidProbability, roundAcid1Probability, roundAcid2Probability, roundAcid3Probability,
+                    roundAcid1_vf2Probability, roundAcid1_vf3Probability, roundAcid1_vf4Probability, roundAcid1_vf5Probability, 
+                    roundAcid1_vf6Probability, roundAcid4Probability, roundAcid5Probability);
         }
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------

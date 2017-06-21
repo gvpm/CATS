@@ -30,8 +30,18 @@ public class AcidLogger {
 
     }
 
-    public void logALine(float density, int acid1, int acid2, int acid3, int nOfCars, int timeConsidered, int dangerousSituations, double acidProbability, float probP, double normalizedAcidProbability, double acid1Probability, double acid2Probability, double acid3Probability) {
-        gravarArq.println((int) density + " " + acid1 + " " + acid2 + " " + acid3 + " " + nOfCars + " " + timeConsidered + " " + timeConsidered + " " + dangerousSituations + " " + acidProbability + " " + probP + " " + normalizedAcidProbability + " " + acid1Probability + " " + acid2Probability + " " + acid3Probability);
+    public void logALine(float density, int acid1, int acid2, int acid3, int nOfCars, int timeConsidered,
+            int dangerousSituations, double acidProbability, float probP, double normalizedAcidProbability,
+            double acid1Probability, double acid2Probability, double acid3Probability,
+            double acid1_vf2Probability, double acid1_vf3Probability, double acid1_vf4Probability,
+            double acid1_vf5Probability, double acid1_vf6Probability, double acid4Probability,
+            double acid5Probability) {
+        gravarArq.println((int) density + " " + acid1 + " " + acid2 + " " + acid3
+                + " " + nOfCars + " " + timeConsidered + " " + timeConsidered + " " + dangerousSituations
+                + " " + acidProbability + " " + probP + " " + normalizedAcidProbability + " "
+                + acid1Probability + " " + acid2Probability + " " + acid3Probability+ " " + 
+                acid1_vf2Probability+ " " + acid1_vf3Probability+ " " + acid1_vf4Probability+ " " + 
+                acid1_vf5Probability+ " " + acid1_vf6Probability+ " " + acid4Probability+ " " + acid5Probability);
         gravarArq.flush();
 
     }
