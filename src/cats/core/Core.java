@@ -17,6 +17,7 @@ import cats.tools.AcidCounter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -323,51 +324,63 @@ public class Core {
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
         if (parameters.getAcidLog() == 1) {
+            
+            DecimalFormat df = new DecimalFormat("#0.000000"); 
 //When the density is created I will log a line in the acidlog
             int[] acidMeasures = acid.getMeasures();
             //Do more math and put more infor in this line
             int timeConsidered = simulationTime - discardTime;
             int dangerousSituations = (acidMeasures[0] + acidMeasures[1]) - acidMeasures[2];
+            
             double acidProbability = ((double) dangerousSituations / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcidProbability = (double) (Math.round(acidProbability * 1000000.000) / 1000000.000);
-
+            //double roundAcidProbability = (double) (Math.round(acidProbability * 1000000.000) / 1000000.000);
+            String roundAcidProbability = df.format(acidProbability);
+            
             double acid1Probability = ((double) acidMeasures[0] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid1Probability = (double) (Math.round(acid1Probability * 1000000.000) / 1000000.000);
-
+            //double roundAcid1Probability = (double) (Math.round(acid1Probability * 1000000.000) / 1000000.000);
+            String roundAcid1Probability = df.format(acid1Probability);
+            
             double acid2Probability = ((double) acidMeasures[1] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid2Probability = (double) (Math.round(acid2Probability * 1000000.000) / 1000000.000);
-
+            //double roundAcid2Probability = (double) (Math.round(acid2Probability * 1000000.000) / 1000000.000);
+            String roundAcid2Probability = df.format(acid2Probability);
+            
             double acid3Probability = ((double) acidMeasures[2] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid3Probability = (double) (Math.round(acid3Probability * 1000000.000) / 1000000.000);
-
+            //double roundAcid3Probability = (double) (Math.round(acid3Probability * 1000000.000) / 1000000.000);
+            String roundAcid3Probability = df.format(acid3Probability);
             
             
             double acid1_vf2Probability = ((double) acidMeasures[3] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid1_vf2Probability = (double) (Math.round(acid1_vf2Probability * 1000000.000) / 1000000.000);
-
+            //double roundAcid1_vf2Probability = (double) (Math.round(acid1_vf2Probability * 1000000.000) / 1000000.000);
+            String roundAcid1_vf2Probability = df.format(acid1_vf2Probability);
             
             double acid1_vf3Probability = ((double) acidMeasures[4] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid1_vf3Probability = (double) (Math.round(acid1_vf3Probability * 1000000.000) / 1000000.000);
-
+            //double roundAcid1_vf3Probability = (double) (Math.round(acid1_vf3Probability * 1000000.000) / 1000000.000);
+            String roundAcid1_vf3Probability = df.format(acid1_vf3Probability);
+           
             double acid1_vf4Probability = ((double) acidMeasures[5] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid1_vf4Probability = (double) (Math.round(acid1_vf4Probability * 1000000.000) / 1000000.000);
-            
+            //double roundAcid1_vf4Probability = (double) (Math.round(acid1_vf4Probability * 1000000.000) / 1000000.000);
+            String roundAcid1_vf4Probability = df.format(acid1_vf4Probability);
+
+           
             double acid1_vf5Probability = ((double) acidMeasures[6] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid1_vf5Probability = (double) (Math.round(acid1_vf5Probability * 1000000.000) / 1000000.000);
-            
+            //double roundAcid1_vf5Probability = (double) (Math.round(acid1_vf5Probability * 1000000.000) / 1000000.000);
+            String roundAcid1_vf5Probability = df.format(acid1_vf5Probability);
+           
             double acid1_vf6Probability = ((double) acidMeasures[7] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid1_vf6Probability = (double) (Math.round(acid1_vf6Probability * 1000000.000) / 1000000.000);
-            
+            //double roundAcid1_vf6Probability = (double) (Math.round(acid1_vf6Probability * 1000000.000) / 1000000.000);
+            String roundAcid1_vf6Probability = df.format(acid1_vf6Probability);
+           
             double acid4Probability = ((double) acidMeasures[8] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid4Probability = (double) (Math.round(acid4Probability * 1000000.000) / 1000000.000);
-            
+            //double roundAcid4Probability = (double) (Math.round(acid4Probability * 1000000.000) / 1000000.000);
+            String roundAcid4Probability = df.format(acid4Probability);
+           
             double acid5Probability = ((double) acidMeasures[9] / (double) vehicles.size()) / (double) timeConsidered;
-            double roundAcid5Probability = (double) (Math.round(acid5Probability * 1000000.000) / 1000000.000);
-            
+            //double roundAcid5Probability = (double) (Math.round(acid5Probability * 1000000.000) / 1000000.000);
+            String roundAcid5Probability = df.format(acid5Probability);
             
             double normalizedAcidProbability = acidProbability / ((double) parameters.getProbP() / (double) 100);
-            double roundNormalizedAcidProbability = (double) (Math.round(normalizedAcidProbability * 1000.0) / 1000.0);
-            
+            //double roundNormalizedAcidProbability = (double) (Math.round(normalizedAcidProbability * 1000.0) / 1000.0);
+            String roundNormalizedAcidProbability = df.format(normalizedAcidProbability);
             
             acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], acidMeasures[2], vehicles.size(),
                     timeConsidered, dangerousSituations, roundAcidProbability, parameters.getProbP(),

@@ -27,7 +27,8 @@ MODEL:naschWithBeta
 LOGNAME:a30b10p30
 PICTURELOG:0
 ACIDLOG:1
-VELLOG:0.07,0.1,0.15,0.3
+//VELLOG:0.07,0.1,0.15,0.3
+VELLOG:0
 ENDOFPARAMETERS
 //-----------------------------------------------------
 //---------------------Profiles------------------------
