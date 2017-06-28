@@ -7,11 +7,6 @@ services:
       dockerfile: redis_dck
     image: redis_img
     container_name: redis_cnt
-    cpu_shares: 73
-    cpu_quota: 50000
-    cpuset: 0,1
-    mem_limit: 1000000000
-    memswap_limit: 2000000000
     privileged: true
     ports:
       - "6379:6379"
