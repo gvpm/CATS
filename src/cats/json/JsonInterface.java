@@ -45,7 +45,14 @@ public class JsonInterface implements Callable<Integer> {
             }
 
             core.init();
+            long startTime = System.currentTimeMillis();
             core.simulateAllDensities();
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            long secondsTotal = elapsedTime / 1000;
+            long minutes = secondsTotal / 60;
+            long secondsRest = secondsTotal % 60;
+            System.out.println("Total Simulation Time: " + minutes + " minutes and " + secondsRest + " seconds.");
+
 
         } catch (JsonGenerationException e) {
             System.out.println(e);
