@@ -1,4 +1,0 @@
-chmod +x CATS.jar
-nohup java -jar CATS.jar 'sub' 'localhost' 'simular' > subscriber.log &
-
-
