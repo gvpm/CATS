@@ -33,11 +33,21 @@ public class RedisSubscriber {
 
     }
 
+    public void waitingMessage() {
+
+        System.out.println("\nWaiting for a Publish in Redis with Configuration");
+        System.out.println("Server: " + server);
+        System.out.println("Channel: " + channelIn);
+
+    }
+
     public void run() {
         Jedis jedis = new Jedis(server);
 
         String channel = channelIn;
-        System.out.println("Aguardando Publish no Redis com Configuração");
+        System.out.println("Waiting for a Publish in Redis with Configuration");
+        System.out.println("Server: " + server);
+        System.out.println("Channel: " + channelIn);
 
         while (true) {
             jedis.subscribe(new JedisPubSub() {
@@ -45,7 +55,6 @@ public class RedisSubscriber {
                 public void onMessage(String channel, String message) {
                     super.onMessage(channel, message);
                     System.out.println("Received message:\n\n" + message);
-                    String jsonAll1;
                     Process p;
                     String s;
                     try {
@@ -53,28 +62,26 @@ public class RedisSubscriber {
                         UUID guid = java.util.UUID.randomUUID();
 
                         File file = new File("run.sh");
-                        System.out.println("\n\n" + guid);
-
+                        System.out.println("\n\nFolder to be created: " + guid);
+                        System.out.println("\n-- Attempt to run simulation script --\n");
                         Runtime.getRuntime().exec("chmod +x" + file.getAbsolutePath());
 
-                        
-                        //p = Runtime.getRuntime().exec(command);
-                        //p = Runtime.getRuntime().exec(file.getAbsolutePath());
-                        p= Runtime.getRuntime().exec(new String[]{file.getAbsolutePath(), message, guid.toString()});
+                        p = Runtime.getRuntime().exec(new String[]{file.getAbsolutePath(), message, guid.toString()});
 
                         BufferedReader br = new BufferedReader(
                                 new InputStreamReader(p.getInputStream()));
                         while ((s = br.readLine()) != null) {
-                            System.out.println("line: " + s);
+                            System.out.println(s);
                         }
                         p.waitFor();
-                        System.out.println("exit: " + p.exitValue());
+                        System.out.println("Script exit value: "+p.exitValue());
                         p.destroy();
 
-                        System.out.println("Simulação Rodando");
+                        System.out.println("\n-- Succes on running simulation script --\n");
+                        waitingMessage();
                     } catch (IOException ex) {
                         Logger.getLogger(RedisSubscriber.class.getName()).log(Level.SEVERE, null, ex);
-                        System.out.println("Erro ao executar");
+                        System.out.println("Error on executing script");
                     } catch (InterruptedException ex) {
                         Logger.getLogger(RedisSubscriber.class.getName()).log(Level.SEVERE, null, ex);
                     }

@@ -79,8 +79,7 @@ public class Core {
 
     //Initializes the core.
     public void init() {
-        File dir = new File(parameters.getLogName());
-        dir.mkdir();
+
 
         //Creates the model to be applied in the cars, using a factory.
         ModelFactory modelFactory = new ModelFactory();

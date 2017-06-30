@@ -22,8 +22,8 @@ public class ConsoleAppLoader {
         try {
 
             if (args.length != 0 && "sub".equals(args[0])) {
-                System.out.println("Modo Subscriber Redis");
-
+                System.out.println("Redis Subscriber Mode");
+                //Starts a redis subscriber with the server and the channel
                 RedisSubscriber sub = new RedisSubscriber(args[1], args[2]);
                 sub.run();
 
