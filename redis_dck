@@ -1,9 +1,0 @@
-FROM redis
-
-RUN mkdir -p /var/run/redis && touch /var/run/redis/redis.pid
-RUN mkdir -p /var/log/redis && touch /var/log/redis/redis.log && chmod 777 /var/log/redis/redis.log
-RUN mkdir -p /var/lib/redis
-
-COPY redis.conf /usr/local/redis/redis.conf
-
-EXPOSE 6379
