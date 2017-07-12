@@ -2,12 +2,9 @@ package cats.interfaces;
 
 import cats.json.RedisSubscriber;
 import cats.gui.GUIOutputWindow;
-import cats.core.Core;
 import cats.json.JsonInterface;
-import cats.tools.FileLoader;
 import cats.tools.MessageConsole;
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
+
 
 /**
  * The console way to run the simulation.
@@ -19,68 +16,72 @@ import java.util.concurrent.ExecutionException;
 public class ConsoleAppLoader {
 
     public static void main(String[] args) {
-        try {
+        if (args.length == 0) {
+            helpMenu();
+        } else {
 
-            if (args.length != 0 && "sub".equals(args[0])) {
-                System.out.println("Redis Subscriber Mode");
-                //Starts a redis subscriber with the server and the channel
-                RedisSubscriber sub = new RedisSubscriber(args[1], args[2]);
-                sub.run();
+            switch (args[0]) {
 
-            } else if (args.length != 0 && "json".equals(args[0])) {
+                case "sub":
+                    System.out.println("Redis Subscriber Mode");
+                    //Starts a redis subscriber with the server and the channel
+                    RedisSubscriber sub = new RedisSubscriber(args[1], args[2]);
+                    sub.run();
+                    break;
 
-                JsonInterface runner = new JsonInterface(args[1]);
-                runner.call();
+                case "json":
 
-            } else {
-                boolean GUI = false;
+                    JsonInterface jsonRunner = new JsonInterface(args[1]);
+                    jsonRunner.call();
+                    break;
 
-                FileLoader fileLoader;
+                case "txt":
 
-                if (args.length == 0) {
+                    boolean GUI = false;
 
-                    fileLoader = new FileLoader("simulation.txt");
-
-                    if (GUI) {
-                        GUIOutputWindow frame = new GUIOutputWindow();
-                        frame.setVisible(true);
-                        MessageConsole mc = new MessageConsole(frame.getjTextArea1());
-                        mc.redirectOut();
-
-                        mc.setMessageLines(100);
-
-                        //Case where arguments were given, running on prompt probably    
+                    if (args.length == 1) {
+                        
+                        if (GUI) {
+                            guiRedirect();
+                        }
+                        FileInterface fileRunner = new FileInterface("simulation.txt");
+                        fileRunner.call();
+                    } else {
+                        FileInterface fileRunner = new FileInterface(args[1]);
+                        fileRunner.call();
                     }
-                } else {
-                    fileLoader = new FileLoader(args[0]);
-                }
 
-                fileLoader.load();
+                    break;
+                default:
+                    helpMenu();
 
-                Core core = fileLoader.getCore();
-
-                //Override of the log name if a second parameter is passed.
-                if (args.length == 2) {
-                    core.getParameters().setLogName(args[1]);
-                }
-                //Initial setup
-                core.init();
-
-                //The initial time
-                long startTime = System.currentTimeMillis();
-                //The entire simulation
-                core.simulateAllDensities();
-                //Calculates and prints the elapsed time
-                long elapsedTime = System.currentTimeMillis() - startTime;
-                long secondsTotal = elapsedTime / 1000;
-                long minutes = secondsTotal / 60;
-                long secondsRest = secondsTotal % 60;
-                System.out.println("Total Simulation Time: " + minutes + " minutes and " + secondsRest + " seconds.");
             }
-        } catch (InterruptedException | ExecutionException | IOException e) {
-            System.out.println(e);
 
         }
+
     }
 
+    private static void helpMenu() {
+        System.out.println("CATS - Cellular Automata Traffic Simulator\n");
+        System.out.println("Help Menu\n");
+        System.out.println("TXT Loader");
+        System.out.println("Example: java -jar CATS.jar txt <input.txt>\n");
+        System.out.println("Running \"-jar CATS.jar txt\" with no fileName w\\n\");\n" +
+"        System.out.println(\"Redis Subill run 'simulation.txt' file" );
+        System.out.println("Json Loader");
+        System.out.println("Example: java -jar CATS.jar json <oneLineJsonString>\n");
+        System.out.println("Redis Subscriber");
+        System.out.println("Example: java -jar CATS.jar sub <server> <channel>\n");
+
+    }
+
+    private static void guiRedirect() {
+        GUIOutputWindow frame = new GUIOutputWindow();
+        frame.setVisible(true);
+        MessageConsole mc = new MessageConsole(frame.getjTextArea1());
+        mc.redirectOut();
+        mc.setMessageLines(100);
+        //Case where arguments were given, running on prompt probably     }
+
+    }
 }
