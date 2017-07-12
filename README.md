@@ -92,7 +92,9 @@ There are 3 ways of running the simulation via prompt.
 }
 
 
+- #### RedisSubscriber Mode:
 
+   Will be documented after test phase.
 
 ## The Output.
 When you run the simulation, it will generate output files.
