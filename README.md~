@@ -19,32 +19,79 @@ This is a Netbeans project.
   It will simulate the dentities 0.05, 0.06, 0.07 ... 0.50, 0.51, 0.52 ... 0.89, 0.90
 
 ## Running the Simulation.
-If you just want to run the simulation you only need the files from **CATSRun** folder.
-There you will find 2 files:
+If you just want to run the simulation you only need what is inside the **CATSRun** folder.
+There you will find the following:
 - The "CAT.jar": The program itself.
-- The "simulation.txt": The default configuration file.
-  A file on this model is required to run the simulation.
+- The folder "configs": Is has a set of .txt configs.
+  A file on this model is required to run the simulation on txt mode.
   
-There are 2 ways of running the simulation.
-- #### Using the simulation GUI
-  To use the simulation GUI you simply need to click on the "CATS.jar" file, a window will open and the simulation will run with the parameters set on the 'simulation.txt' file that should be in the same folder.
+There are 3 ways of running the simulation via prompt.
   
-- #### Via prompt:
+- #### TXT Loader Mode:
 
+   Syntax:
 
-   If you want to run a configuraton file with a different name you need to run the program via prompt.
+   `java -jar CATS.jar txt <yourConfigFileName.txt>"`	
+
+   Be sure to have the configuration file on the same folder.
    
-   To do that you need to open the folder containing the files. Use `cd` command to open teh desired folder.
-   
-   After that, use the following command to run the simulation.
-   
-   `java -jar CATS.jar yourConfigFileName.txt`
+   Running the txt mode with no input parameter will run the 'simulation.txt'
+
+   `java -jar CATS.jar txt`
    
    The file you pick should be in the same folder.
 
-   You can override the output file name set in the configuration file by sending a second parameter,like this:
+- #### JSON Loader Mode:
 
-    `java -jar CATS.jar yourConfigFileName.txt outputname`
+   Syntax:
+
+   `java -jar CATS.jar json <oneLineJsonString>"`	
+
+   To run the program using a Json Configuration you need put all the json in a continuous one line String.
+
+   You can use this website to edit and compact your json: http://jsoneditoronline.org/
+
+   Here is an example of a json configuration.
+
+
+{
+  "simulationParameters": {
+    "speedLimit": 25,
+    "probP": 30,
+    "simulationTime": 15000,
+    "discardTime": 10000,
+    "statisticTime": 121,
+    "initialDensity": 0.01,
+    "deltaDensity": 0.01,
+    "finalDensity": 0.9,
+    "cellsInX": 10000,
+    "cellsInY": 1,
+    "cellSize": 1.5,
+    "defaultCarSize": 7.5,
+    "model": "nasch",
+    "logName": "naschp30",
+    "pictureLog": "0",
+    "acidLog": 1,
+    "velLog": "0"
+  },
+  "profiles":[{
+    "fdpProviderString": "uniform",
+    "name": "NaschBasic",
+    "size": 5,
+    "velMax": 25,
+    "ahead": 0,
+    "safeDistance": 0,
+    "velIncrement": 5,
+    "percentageOccurrence": 1,
+    "alphaAcc": 8,
+    "betaAcc": 4,
+    "alphaAnt": 8,
+    "betaAnt": 4
+  }
+  ]
+}
+
+
 
 
 ## The Output.

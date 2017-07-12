@@ -53,7 +53,7 @@ There are 3 ways of running the simulation via prompt.
 
    Here is an example of a json configuration.
 
-   ```json
+
 {
   "simulationParameters": {
     "speedLimit": 25,
@@ -90,7 +90,7 @@ There are 3 ways of running the simulation via prompt.
   }
   ]
 }
-   ```
+
 
 
 
