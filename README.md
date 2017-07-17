@@ -1,3 +1,5 @@
+<img src="img/frontCat.png" alt="You" style="width: 100px;"/>
+
 # CATS - Cellular Automata Traffic Simulator
 A program that allows the implementation and simulation of various cellular automata traffic simulation models.
 
