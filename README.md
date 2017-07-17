@@ -1,4 +1,4 @@
-<img src="img/frontCat.png" alt="Cat" width="100" height="100"/>
+<img src="img/frontCat.png" alt="Cat" width="150"/>
 
 
 
