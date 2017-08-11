@@ -189,7 +189,7 @@ There are 2 types of logs.
   
   
   
-  
-  
+  This project was made with the support of CNPq, Conselho Nacional
+de Desenvolvimento Científico e Tecnológico - Brazil. 
 
 
