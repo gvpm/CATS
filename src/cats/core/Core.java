@@ -400,7 +400,7 @@ public class Core {
             picLogger.closeLogger();
             picLogger.convertToImage();
             //Deletes the big file
-            picLogger.deleteLog();
+            //picLogger.deleteLog();
 
         }
 //-------------------------------------------------------------        
