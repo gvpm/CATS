@@ -34,10 +34,16 @@ public class PictureLogger {
     public void logALine(int[] grid) {
         for (int i = 0; i < grid.length; i++) {
             int j = grid[i];
-            if (j == -1) {
-                gravarArq.print(0);
-            } else {
-                gravarArq.print(1);
+            switch (j) {
+                case -1:
+                    gravarArq.print(0);
+                    break;
+                case 2:
+                    gravarArq.print(2);
+                    break;
+                default:
+                    gravarArq.print(1);
+                    break;
             }
 
         }

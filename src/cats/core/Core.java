@@ -398,7 +398,7 @@ public class Core {
         //if (parameters.getPictureLog() == 1) {
         if (parameters.getPictureLog().contains(roundDString)) {
             picLogger.closeLogger();
-            picLogger.convertToImage();
+            //picLogger.convertToImage();
             //Deletes the big file
             //picLogger.deleteLog();
 
