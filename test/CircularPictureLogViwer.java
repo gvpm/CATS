@@ -4,12 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import static javafx.scene.paint.Color.color;
 import processing.core.*;
 
 public class CircularPictureLogViwer extends PApplet {
 
-    int x = 600;
-    int y = 600;
+    int x = 1200;
+    int y = 300;
     int[] grid;
     String line;
     FileReader f;
@@ -22,7 +23,7 @@ public class CircularPictureLogViwer extends PApplet {
     boolean eof2;
 
     int i = 1;
-    int carSize = 5;
+    int carSize = 15;
 
     int lastCar1Middle = 0;
     int lastCar2Middle = 0;
@@ -46,7 +47,7 @@ public class CircularPictureLogViwer extends PApplet {
         background(255);
 
         try {
-            f = new FileReader("360s/nasch-d0.8.txt");
+            f = new FileReader("360s/nasch-d0.2.txt");
 
             b = new BufferedReader(f);
             eof = false;
@@ -56,7 +57,7 @@ public class CircularPictureLogViwer extends PApplet {
                 eof = true;
             }
 
-            f2 = new FileReader("360s/3010-d0.8.txt");
+            f2 = new FileReader("360s/3010-d0.2.txt");
 
             b2 = new BufferedReader(f2);
             eof2 = false;
@@ -108,16 +109,18 @@ public class CircularPictureLogViwer extends PApplet {
             }
             //System.out.println("TotalCars1"+CircularCars.size() );
             for (int j = 0; j < CircularCars.size(); j++) {
+
                 if (CircularCars.get(j).index == 2) {
                     fill(0);
                 }
-                ellipse(CircularCars.get(j).getMiddle(), 300, carSize, carSize);
+                ellipse(20 + CircularCars.get(j).getMiddle() * 3, 150, carSize, carSize);
 
                 fill(255);
 
             }
+            fill(0);
             textSize(14);
-            text(roundsCountCar1, 380, 300);
+            text(roundsCountCar1, 1100, 150);
         }
 
         ArrayList<CircularCar> CircularCars2 = new ArrayList<>();
@@ -155,7 +158,7 @@ public class CircularPictureLogViwer extends PApplet {
                     }
                     sizeCount2 = 0;
                     if (index == 2) {
-                        if (((j - 2) - lastCar2Middle)< -5) {
+                        if (((j - 2) - lastCar2Middle) < -5) {
                             roundsCountCar2++;
                         }
                         lastCar2Middle = j - 2;
@@ -164,7 +167,7 @@ public class CircularPictureLogViwer extends PApplet {
                     CircularCars2.add(new CircularCar(j - 2, carSize, index));
                     sizeCount2 = 0;
                     if (index == 2) {
-                        if (((j - 2) - lastCar2Middle)< -5) {
+                        if (((j - 2) - lastCar2Middle) < -5) {
                             roundsCountCar2++;
                         }
                         lastCar2Middle = j - 2;
@@ -174,17 +177,19 @@ public class CircularPictureLogViwer extends PApplet {
             }
             //System.out.println("TotalCars2"+CircularCars2.size() );
             for (int j = 0; j < CircularCars2.size(); j++) {
+               
+
                 if (CircularCars2.get(j).index == 2) {
                     fill(0);
                 }
-                ellipse(CircularCars2.get(j).getMiddle(), 330, carSize, carSize);
+                ellipse(20 + CircularCars2.get(j).getMiddle() * 3, 180, carSize, carSize);
 
                 fill(255);
 
             }
-
+            fill(0);
             textSize(14);
-            text(roundsCountCar2, 380, 330);
+            text(roundsCountCar2, 1100, 180);
         }
 
     }
