@@ -5,16 +5,16 @@ import cats.dataModels.Vehicle;
 import cats.dataModels.Profile;
 import cats.tools.IterationCallable;
 import cats.tools.MainDataExtractor;
-import cats.loggers.PictureLogger;
-import cats.loggers.Logger;
+import cats.file.loggers.PictureLogger;
+import cats.file.loggers.Logger;
 import cats.fdps.FDPProviderUniform;
 import cats.fdps.FDPProvider;
-import cats.loggers.AcidLogger;
-import cats.loggers.VelLogger;
+import cats.file.loggers.AcidLogger;
+import cats.file.loggers.VelLogger;
+import cats.log.handlers.AcidLogHandler;
 import cats.models.ModelFactory;
 import cats.models.Model;
 import cats.tools.AcidCounter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
@@ -80,7 +80,6 @@ public class Core {
     //Initializes the core.
     public void init() {
 
-
         //Creates the model to be applied in the cars, using a factory.
         ModelFactory modelFactory = new ModelFactory();
         model = modelFactory.fabricate(parameters.getModel());
@@ -119,6 +118,8 @@ public class Core {
      * Will trigger the simulation to all densities, will go from inicialDensity
      * to finalDensity adding deltaDensity each time.
      *
+     * @throws java.lang.InterruptedException
+     * @throws java.util.concurrent.ExecutionException
      */
     public void simulateAllDensities() throws InterruptedException, ExecutionException {
 
@@ -322,77 +323,15 @@ public class Core {
 //-------------------------------------------------------------        
 //---------------ACID RELATED----------------------------------
 //------------------------------------------------------------- 
-        if (parameters.getAcidLog() == 1) {
-            
-            DecimalFormat df = new DecimalFormat("#0.000000"); 
-//When the density is created I will log a line in the acidlog
-            int[] acidMeasures = acid.getMeasures();
-            //Do more math and put more infor in this line
-            int timeConsidered = simulationTime - discardTime;
-            int dangerousSituations = (acidMeasures[0] + acidMeasures[1]) - acidMeasures[2];
-            
-            double acidProbability = ((double) dangerousSituations / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcidProbability = (double) (Math.round(acidProbability * 1000000.000) / 1000000.000);
-            String roundAcidProbability = df.format(acidProbability);
-            
-            double acid1Probability = ((double) acidMeasures[0] / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcid1Probability = (double) (Math.round(acid1Probability * 1000000.000) / 1000000.000);
-            String roundAcid1Probability = df.format(acid1Probability);
-            
-            double acid2Probability = ((double) acidMeasures[1] / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcid2Probability = (double) (Math.round(acid2Probability * 1000000.000) / 1000000.000);
-            String roundAcid2Probability = df.format(acid2Probability);
-            
-            double acid3Probability = ((double) acidMeasures[2] / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcid3Probability = (double) (Math.round(acid3Probability * 1000000.000) / 1000000.000);
-            String roundAcid3Probability = df.format(acid3Probability);
-            
-            
-            double acid1_vf2Probability = ((double) acidMeasures[3] / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcid1_vf2Probability = (double) (Math.round(acid1_vf2Probability * 1000000.000) / 1000000.000);
-            String roundAcid1_vf2Probability = df.format(acid1_vf2Probability);
-            
-            double acid1_vf3Probability = ((double) acidMeasures[4] / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcid1_vf3Probability = (double) (Math.round(acid1_vf3Probability * 1000000.000) / 1000000.000);
-            String roundAcid1_vf3Probability = df.format(acid1_vf3Probability);
-           
-            double acid1_vf4Probability = ((double) acidMeasures[5] / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcid1_vf4Probability = (double) (Math.round(acid1_vf4Probability * 1000000.000) / 1000000.000);
-            String roundAcid1_vf4Probability = df.format(acid1_vf4Probability);
 
-           
-            double acid1_vf5Probability = ((double) acidMeasures[6] / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcid1_vf5Probability = (double) (Math.round(acid1_vf5Probability * 1000000.000) / 1000000.000);
-            String roundAcid1_vf5Probability = df.format(acid1_vf5Probability);
-           
-            double acid1_vf6Probability = ((double) acidMeasures[7] / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcid1_vf6Probability = (double) (Math.round(acid1_vf6Probability * 1000000.000) / 1000000.000);
-            String roundAcid1_vf6Probability = df.format(acid1_vf6Probability);
-           
-            double acid4Probability = ((double) acidMeasures[8] / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcid4Probability = (double) (Math.round(acid4Probability * 1000000.000) / 1000000.000);
-            String roundAcid4Probability = df.format(acid4Probability);
-           
-            double acid5Probability = ((double) acidMeasures[9] / (double) vehicles.size()) / (double) timeConsidered;
-            //double roundAcid5Probability = (double) (Math.round(acid5Probability * 1000000.000) / 1000000.000);
-            String roundAcid5Probability = df.format(acid5Probability);
-            
-            double normalizedAcidProbability = acidProbability / ((double) parameters.getProbP() / (double) 100);
-            //double roundNormalizedAcidProbability = (double) (Math.round(normalizedAcidProbability * 1000.0) / 1000.0);
-            String roundNormalizedAcidProbability = df.format(normalizedAcidProbability);
-            
-            acidLogger.logALine(roundD * 100, acidMeasures[0], acidMeasures[1], acidMeasures[2], vehicles.size(),
-                    timeConsidered, dangerousSituations, roundAcidProbability, parameters.getProbP(),
-                    roundNormalizedAcidProbability, roundAcid1Probability, roundAcid2Probability, roundAcid3Probability,
-                    roundAcid1_vf2Probability, roundAcid1_vf3Probability, roundAcid1_vf4Probability, roundAcid1_vf5Probability, 
-                    roundAcid1_vf6Probability, roundAcid4Probability, roundAcid5Probability);
-        }
+        //Calculates and logs all the Acids for this step using the AcidLogHandler
+        AcidLogHandler.CalculateAndLog(parameters, acid, acidLogger, vehicles, simulationTime, discardTime, roundD);
+
 //-------------------------------------------------------------        
 //---------------ACID LOG RELATED------------------------------
 //-------------------------------------------------------------  
-
 //-------------------------------------------------------------        
-//---------------PICTURE LOG RELATED---------------------------
+//---------------PICTURE LOG RELATED--------------------------- 
 //-------------------------------------------------------------         
         //Closes the picture logger and converts to image
         //if (parameters.getPictureLog() == 1) {
@@ -424,6 +363,9 @@ public class Core {
     /**
      * Main iteration, applies the model for each vehicle, updates the grid
      * after.
+     *
+     * @throws java.lang.InterruptedException
+     * @throws java.util.concurrent.ExecutionException
      */
     public void iterate() throws InterruptedException, ExecutionException {
 //NORMAL ITERARION, COMMENTED, USING THREADS NOW

@@ -1,4 +1,4 @@
-package cats.loggers;
+package cats.file.loggers;
 
 import cats.tools.TxtToImage;
 import java.io.File;

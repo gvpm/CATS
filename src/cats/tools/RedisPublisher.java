@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cats.json;
+package cats.tools;
 
 import java.util.Scanner;
 import redis.clients.jedis.Jedis;

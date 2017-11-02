@@ -1,4 +1,4 @@
-package cats.loggers;
+package cats.file.loggers;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,16 +9,14 @@ import java.io.PrintWriter;
  *
  * @author gvpm
  */
-public class VelLogger {
+public class Logger {
 
     String fileName;
-    float density;
     FileWriter arq = null;
     PrintWriter gravarArq;
 
-    public VelLogger(String fileName, float density) {
+    public Logger(String fileName) {
         this.fileName = fileName;
-        this.density = density;
 
         try {
             arq = new FileWriter(fileName + ".txt");
@@ -30,9 +28,8 @@ public class VelLogger {
 
     }
 
-    public void logALine(int time, float vel1, float vel2, float vel3, float avgVel) {
-
-        gravarArq.println(density + " " + time + " " + (int) vel1 + " " + (int) vel2 + " " + (int) vel3 + " " + (int) avgVel);
+    public void logALine(float flow, float density, float avgVel) {
+        gravarArq.println(flow + " " + density + " " + avgVel);
         gravarArq.flush();
 
     }

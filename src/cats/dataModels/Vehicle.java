@@ -2,7 +2,6 @@ package cats.dataModels;
 
 import cats.core.Core;
 import cats.core.Grid;
-import cats.dataModels.Profile;
 
 /**
  * Responsible to store the vehicles information. The vehicle know what core it

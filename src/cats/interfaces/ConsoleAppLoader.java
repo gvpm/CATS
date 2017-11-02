@@ -64,13 +64,13 @@ public class ConsoleAppLoader {
     private static void helpMenu() {
         System.out.println("CATS - Cellular Automata Traffic Simulator\n");
         System.out.println("Help Menu\n");
-        System.out.println("TXT Loader");
-        System.out.println("Example: java -jar CATS.jar txt <input.txt>\n");
-        System.out.println("Running \"-jar CATS.jar txt\" with no fileName w\\n\");\n" +
-"        System.out.println(\"Redis Subill run 'simulation.txt' file" );
-        System.out.println("Json Loader");
+        System.out.println("\nMode 1: TXT Loader");
+        System.out.println("Example: java -jar CATS.jar txt <input.txt>");
+//        System.out.println("Running \"-jar CATS.jar txt\" with no fileName w\\n\");\n" +
+//"        System.out.println(\"Redis Subill run 'simulation.txt' file" );
+        System.out.println("\nMode 2: Json Loader");
         System.out.println("Example: java -jar CATS.jar json <oneLineJsonString>\n");
-        System.out.println("Redis Subscriber");
+        System.out.println("Mode 3: Redis Subscriber");
         System.out.println("Example: java -jar CATS.jar sub <server> <channel>\n");
 
     }

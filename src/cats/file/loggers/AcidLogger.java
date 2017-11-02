@@ -1,4 +1,4 @@
-package cats.loggers;
+package cats.file.loggers;
 
 import java.io.File;
 import java.io.FileWriter;

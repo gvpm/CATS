@@ -1,11 +1,7 @@
 package cats.interfaces;
 
-import cats.json.*;
 import cats.core.Core;
-import cats.dataModels.Profile;
-import cats.dataModels.SimulationParameters;
 import cats.tools.FileLoader;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import java.io.IOException;
