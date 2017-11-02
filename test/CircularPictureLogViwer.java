@@ -47,7 +47,7 @@ public class CircularPictureLogViwer extends PApplet {
         background(255);
 
         try {
-            f = new FileReader("360s/nasch-d0.2.txt");
+            f = new FileReader("360s/nasch-d0.3.txt");
 
             b = new BufferedReader(f);
             eof = false;
@@ -57,7 +57,7 @@ public class CircularPictureLogViwer extends PApplet {
                 eof = true;
             }
 
-            f2 = new FileReader("360s/3010-d0.2.txt");
+            f2 = new FileReader("360s/3010-d0.3.txt");
 
             b2 = new BufferedReader(f2);
             eof2 = false;
