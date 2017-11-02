@@ -109,7 +109,7 @@ public class Grid {
 
     }
 
-    public void placeVehiclesOnGridSeparate1Profile(ArrayList<Vehicle> vehicles) {
+     public void placeVehiclesOnGridSeparate1Profile(ArrayList<Vehicle> vehicles) {
         ArrayList<Integer> positions = new ArrayList<>();
         int size = vehicles.get(0).getProfile().getSize();
         //puts in an array list all the possible positions

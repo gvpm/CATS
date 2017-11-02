@@ -18,6 +18,24 @@ import java.util.ArrayList;
  */
 public class AcidLogHandler {
 
+    public static void Measure(SimulationParameters parameters, int currentTime, int discardTime, AcidCounter acidCounter) {
+        if (parameters.getAcidLog() == 1) {
+//after each iteration I update the acidCounter counters
+            if ((currentTime > discardTime)) {
+                acidCounter.measure();
+            }
+        }
+
+    }
+
+    public static void Reset(SimulationParameters parameters, AcidCounter acidCounter) {
+        if (parameters.getAcidLog() == 1) {
+            acidCounter.reset();
+
+        }
+
+    }
+
     public static void CalculateAndLog(SimulationParameters parameters, AcidCounter acid, AcidLogger acidLogger, ArrayList<Vehicle> vehicles, int simulationTime, int discardTime, float roundD) {
         if (parameters.getAcidLog() == 1) {
 

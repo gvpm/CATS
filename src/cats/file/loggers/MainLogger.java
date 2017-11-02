@@ -9,13 +9,13 @@ import java.io.PrintWriter;
  *
  * @author gvpm
  */
-public class Logger {
+public class MainLogger {
 
     String fileName;
     FileWriter arq = null;
     PrintWriter gravarArq;
 
-    public Logger(String fileName) {
+    public MainLogger(String fileName) {
         this.fileName = fileName;
 
         try {

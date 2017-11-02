@@ -6,18 +6,19 @@ import cats.dataModels.Profile;
 import cats.tools.IterationCallable;
 import cats.tools.MainDataExtractor;
 import cats.file.loggers.PictureLogger;
-import cats.file.loggers.Logger;
+import cats.file.loggers.MainLogger;
 import cats.fdps.FDPProviderUniform;
 import cats.fdps.FDPProvider;
 import cats.file.loggers.AcidLogger;
 import cats.file.loggers.VelLogger;
 import cats.log.handlers.AcidLogHandler;
+import cats.log.handlers.PictureLogHandler;
+import cats.log.handlers.VelLogHandler;
 import cats.models.ModelFactory;
 import cats.models.Model;
 import cats.tools.AcidCounter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -41,27 +42,18 @@ public class Core {
     Model model;
     MainDataExtractor mainDataExtractor;
     MainDataExtractor oneEachDensDataExtractor;
-    AcidCounter acid;
+    AcidCounter acidCounter;
 
-    Logger logger;
-    Logger oneEachDensLogger;
-//-------------------------------------------------------------        
-//---------------ACID RELATED----------------------------------
-//-------------------------------------------------------------
+    //Loggers
+    MainLogger mainLogger;
+    MainLogger oneEachDensLogger;
     AcidLogger acidLogger;
-//-------------------------------------------------------------        
-//---------------ACID RELATED---------------------------
-//-------------------------------------------------------------
     PictureLogger picLogger;
     VelLogger velLogger;
 
     //This is a general FDP Uniform Provider.
     FDPProvider generalFDPUniform;
 
-    //----------------------------LOG
-    FileWriter arq = null;
-    PrintWriter gravarArq;
-    //----------------------------
 
     public Core(SimulationParameters parameters) {
         this.parameters = parameters;
@@ -77,41 +69,53 @@ public class Core {
 
     }
 
+    public void initializeDataExtractors() {
+        //Creates a data extractor, will provide the information to be logged.
+        mainDataExtractor = new MainDataExtractor(this);
+        oneEachDensDataExtractor = new MainDataExtractor(this);
+        if (parameters.getAcidLog() == 1) {
+            acidCounter = new AcidCounter(this);
+        }
+    }
+
+    public void initializeLoggers() {
+        //Will log information 
+        mainLogger = new MainLogger(parameters.getLogName());
+        oneEachDensLogger = new MainLogger(parameters.getLogName() + "-1p");
+
+        if (parameters.getAcidLog() == 1) {
+            acidLogger = new AcidLogger(parameters.getLogName() + "-acid");
+        }
+    }
+
+    public void closeLoggers() {
+
+        mainLogger.closeLogger();
+
+        oneEachDensLogger.closeLogger();
+
+        if (parameters.getAcidLog() == 1) {
+            acidLogger.closeLogger();
+        }
+
+    }
+
     //Initializes the core.
     public void init() {
 
         //Creates the model to be applied in the cars, using a factory.
         ModelFactory modelFactory = new ModelFactory();
         model = modelFactory.fabricate(parameters.getModel());
-        //Creates a data extractor, will provide the information to be logged.
-        mainDataExtractor = new MainDataExtractor(this);
-        oneEachDensDataExtractor = new MainDataExtractor(this);
-        //Will log information 
-        logger = new Logger(parameters.getLogName());
-        oneEachDensLogger = new Logger(parameters.getLogName() + "-1p");
-//-------------------------------------------------------------        
-//---------------ACID RELATED----------------------------------
-//-------------------------------------------------------------
-        if (parameters.getAcidLog() == 1) {
-            acidLogger = new AcidLogger(parameters.getLogName() + "-acid");
-        }
-//-------------------------------------------------------------        
-//---------------ACID RELATED----------------------------------
-//-------------------------------------------------------------
+
+        initializeDataExtractors();
+
+        initializeLoggers();
+
         //Creates the grid
         createGrid();
         //Inits the general Uniform FDP Provider
         generalFDPUniform = new FDPProviderUniform();
 
-//-------------------------------------------------------------        
-//---------------ACID RELATED---------------------------
-//------------------------------------------------------------- 
-        if (parameters.getAcidLog() == 1) {
-            acid = new AcidCounter(this);
-        }
-//-------------------------------------------------------------        
-//---------------ACID LOG RELATED---------------------------
-//-------------------------------------------------------------
     }
 
     /**
@@ -139,32 +143,8 @@ public class Core {
         //End of simulation
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("Simulation Ended");
-//-------------------------------------------------------------        
-//---------------------MAIN LOG RELATED------------------------
-//-------------------------------------------------------------
-        //Closing the log here.
-        logger.closeLogger();
-//-------------------------------------------------------------        
-//---------------------MAIN LOG RELATED------------------------
-//-------------------------------------------------------------
-//-------------------------------------------------------------        
-//--------------------- ONE EACH DENS LOG RELATED------------------------
-//-------------------------------------------------------------
-        //Closing the log here.
-        oneEachDensLogger.closeLogger();
-//-------------------------------------------------------------        
-//---------------------ONE EACH DENS LOG RELATED------------------------
-//-------------------------------------------------------------
-//-------------------------------------------------------------        
-//---------------ACID RELATED----------------------------------
-//------------------------------------------------------------- 
-//I need to close the acid logger here
-        if (parameters.getAcidLog() == 1) {
-            acidLogger.closeLogger();
-        }
-//-------------------------------------------------------------        
-//---------------ACID LOG RELATED------------------------------
-//------------------------------------------------------------- 
+
+        closeLoggers();
 
     }
 
@@ -172,49 +152,23 @@ public class Core {
      * Simulates one specific density.
      *
      * @param d density to simulate
+     * @throws java.lang.InterruptedException
+     * @throws java.util.concurrent.ExecutionException
      */
     public void simulateDensity(float d) throws InterruptedException, ExecutionException {
         //Sets inicial condition or this density.
         setInitialCondition(d);
         //Rounds the density 
         float roundD = (float) (Math.round(d * 100.0) / 100.0);
-        String roundDString = "" + roundD;
 
-        String fileName = parameters.getLogName() + "-d" + roundD;
-        String fileNameVelLog = parameters.getLogName() + "-velLog-d" + roundD;
-//-------------------------------------------------------------        
-//---------------ACID RELATED----------------------------------
-//------------------------------------------------------------- 
-        if (parameters.getAcidLog() == 1) {
-//Here I reset the acid counters to start this new density
-            acid.reset();
-        }
-//-------------------------------------------------------------        
-//---------------ACID LOG RELATED------------------------------
-//------------------------------------------------------------- 
+        //Creates a picture log for that density
+        picLogger = PictureLogHandler.Create(parameters, roundD);
+        //Creates a vel log for that density
+        velLogger = VelLogHandler.Create(parameters, roundD);
 
-//-------------------------------------------------------------        
-//---------------PICTURE LOG RELATED---------------------------
-//------------------------------------------------------------- 
-        //Creates a picture log for that density
-        //if (parameters.getPictureLog() == 1) {
-        if (parameters.getPictureLog().contains(roundDString)) {
-            picLogger = new PictureLogger(fileName, roundD);
-        }
-//-------------------------------------------------------------        
-//---------------PICTURE LOG RELATED---------------------------
-//------------------------------------------------------------- 
-//-------------------------------------------------------------        
-//---------------VEL LOG RELATED---------------------------
-//------------------------------------------------------------- 
-        //Creates a picture log for that density
-        //if (parameters.getPictureLog() == 1) {
-        if (parameters.getVelLog().contains(roundDString)) {
-            velLogger = new VelLogger(fileNameVelLog, roundD);
-        }
-//-------------------------------------------------------------        
-//---------------VEL LOG RELATED---------------------------
-//------------------------------------------------------------- 
+        //Here I reset the acidCounter counters to start this new density
+        AcidLogHandler.Reset(parameters, acidCounter);
+
 
         int simulationTime = parameters.getSimulationTime();
         int statisticTime = parameters.getStatisticTime();
@@ -226,57 +180,24 @@ public class Core {
         mainDataExtractor.restartSumCounters();
         oneEachDensDataExtractor.restartSumCounters();
 
-        for (int i = 0; i <= simulationTime; i++) {
+        for (int currentTime = 0; currentTime <= simulationTime; currentTime++) {
 
             iterate();
 
-//-------------------------------------------------------------        
-//---------------ACID RELATED----------------------------------
-//------------------------------------------------------------- 
-            if (parameters.getAcidLog() == 1) {
-//after each iteration I update the acid counters
-                if ((i > discardTime)) {
-                    acid.measure();
-                }
-            }
-//-------------------------------------------------------------        
-//---------------ACID LOG RELATED------------------------------
-//-------------------------------------------------------------             
-//-------------------------------------------------------------        
-//---------------PICTURE LOG RELATED---------------------------
-//-------------------------------------------------------------             
-            //Logs a line on pictureLogger
-            //if (parameters.getPictureLog() == 1) {
-            if (parameters.getPictureLog().contains(roundDString)) {
-                picLogger.logALine(grid.getGrid());
-            }
-//-------------------------------------------------------------        
-//---------------PICTURE LOG RELATED---------------------------
-//-------------------------------------------------------------   
-
-//---------------VEL LOG RELATED---------------------------
-//-------------------------------------------------------------             
+            AcidLogHandler.Measure(parameters, currentTime, discardTime, acidCounter);
+           
+            //Logs a line on pictureLogger            
+            PictureLogHandler.Log(parameters, grid, picLogger, roundD);
+             
             //Logs a line on velLogger
-            if ((i > discardTime)) {
-                if (parameters.getVelLog().contains(roundDString)) {
-                    float velToLog = this.getParameters().getCellSize() * (float) 3.6 * getVehicleFromId(1).getVelocity();
-                    float roundVelToLog = (float) (Math.round(velToLog * 10.0) / 10.0);
-                    float velToLog2 = this.getParameters().getCellSize() * (float) 3.6 * getVehicleFromId(2).getVelocity();
-                    float roundVelToLog2 = (float) (Math.round(velToLog2 * 10.0) / 10.0);
-                    float velToLog3 = this.getParameters().getCellSize() * (float) 3.6 * getVehicleFromId(3).getVelocity();
-                    float roundVelToLog3 = (float) (Math.round(velToLog3 * 10.0) / 10.0);
-                    velLogger.logALine(i, roundVelToLog, roundVelToLog2, roundVelToLog3, mainDataExtractor.getAvgVel());
-                }
-            }
-//-------------------------------------------------------------        
-//---------------VEL LOG RELATED---------------------------
-//-------------------------------------------------------------  
+            VelLogHandler.CalculateAndLog(parameters, velLogger, roundD, currentTime, discardTime, this, mainDataExtractor);
+            
 
 //-------------------------------------------------------------        
 //---------------------MAIN LOG RELATED------------------------
 //------------------------------------------------------------- 
             //Will log every statisticTime, no logging the  initial discardTime
-            if ((i > discardTime)) {
+            if ((currentTime > discardTime)) {
                 logTimeCounter++;
                 //Everu step it measures and adds to the sum.
                 mainDataExtractor.measure(roundD * 100);
@@ -284,7 +205,7 @@ public class Core {
                 if ((logTimeCounter == statisticTime)) {
                     //every statistic time takes the average of the sum and logs
                     float[] measures = mainDataExtractor.getResults();
-                    logger.logALine(measures[0], roundD * 100, measures[1]);
+                    mainLogger.logALine(measures[0], roundD * 100, measures[1]);
                     logTimeCounter = 0;
                 }
 
@@ -297,12 +218,12 @@ public class Core {
 //---------------------ONE EACH DENS LOG RELATED------------------------
 //------------------------------------------------------------- 
             //Will log every statisticTime, no logging the  initial discardTime
-            if ((i > discardTime)) {
+            if ((currentTime > discardTime)) {
 
                 //Everu step it measures and adds to the sum.
                 oneEachDensDataExtractor.measure(roundD * 100);
 
-                if (i == simulationTime) {
+                if (currentTime == simulationTime) {
                     //every statistic time takes the average of the sum and logs
                     float[] measures2 = oneEachDensDataExtractor.getResults();
                     oneEachDensLogger.logALine(measures2[0], roundD * 100, measures2[1]);
@@ -317,46 +238,20 @@ public class Core {
         }
 
 //-----------------END OF DENSITY SIMULATION--------------------  
+
         //restart flow and averagevel sum counters
         mainDataExtractor.restartSumCounters();
         oneEachDensDataExtractor.restartSumCounters();
-//-------------------------------------------------------------        
-//---------------ACID RELATED----------------------------------
-//------------------------------------------------------------- 
 
         //Calculates and logs all the Acids for this step using the AcidLogHandler
-        AcidLogHandler.CalculateAndLog(parameters, acid, acidLogger, vehicles, simulationTime, discardTime, roundD);
+        AcidLogHandler.CalculateAndLog(parameters, acidCounter, acidLogger, vehicles, simulationTime, discardTime, roundD);
+       
+        //Closes the picture mainLogger and converts to image
+        PictureLogHandler.Close(parameters, picLogger, roundD);
+       
+        //Closes the vel Logger
+        VelLogHandler.Close(parameters, velLogger, roundD);
 
-//-------------------------------------------------------------        
-//---------------ACID LOG RELATED------------------------------
-//-------------------------------------------------------------  
-//-------------------------------------------------------------        
-//---------------PICTURE LOG RELATED--------------------------- 
-//-------------------------------------------------------------         
-        //Closes the picture logger and converts to image
-        //if (parameters.getPictureLog() == 1) {
-        if (parameters.getPictureLog().contains(roundDString)) {
-            picLogger.closeLogger();
-            //picLogger.convertToImage();
-            //Deletes the big file
-            //picLogger.deleteLog();
-
-        }
-//-------------------------------------------------------------        
-//---------------PICTURE LOG RELATED---------------------------
-//------------------------------------------------------------- 
-
-//-------------------------------------------------------------        
-//---------------VEL LOG RELATED---------------------------
-//-------------------------------------------------------------         
-        //Closes the vel logger and converts to image
-        if (parameters.getVelLog().contains(roundDString)) {
-            velLogger.closeLogger();
-
-        }
-//-------------------------------------------------------------        
-//---------------VEL LOG RELATED---------------------------
-//------------------------------------------------------------- 
 
     }
 
@@ -369,9 +264,9 @@ public class Core {
      */
     public void iterate() throws InterruptedException, ExecutionException {
 //NORMAL ITERARION, COMMENTED, USING THREADS NOW
-//        for (int i = 0; i < vehicles.size(); i++) {
+//        for (int currentTime = 0; currentTime < vehicles.size(); currentTime++) {
 //
-//            model.apply(vehicles.get(i));
+//            model.apply(vehicles.get(currentTime));
 //
 //        }
 //          update();
@@ -419,7 +314,7 @@ public class Core {
         }
         //iterates from the begining of that part to the end of that part
         for (int i = 0 + (partSize * (partNumber - 1)); i < end; i++) {
-            //System.out.print(" " + i);
+            //System.out.print(" " + currentTime);
             //applies the model to the current vehicle
             model.apply(vehicles.get(i));
         }
@@ -457,7 +352,7 @@ public class Core {
         //rounds up density to 2 decimal cases
         float roundD = (float) (Math.round(d * 100.0) / 100.0);
         //number of cells that will be occupied in this density
-        int occupiedCells = (int) (parameters.getCellsInX() * roundD);
+        int occupiedCells = (int) (parameters.getCellsInX()* parameters.getCellsInY() * roundD);
         System.out.println("\n-----------------------------------------------------------------------------------------");
         System.out.println("Density: " + roundD + " Occupied Cells: " + occupiedCells + " out of " + parameters.getCellsInX());
         //will store here the number of cars in this density or each profile
@@ -498,7 +393,7 @@ public class Core {
         System.out.println("\nTotal Vehicles Loaded: " + vehicles.size());
 
         //set the cars neighbours
-        setNeighbours();
+        //setNeighbours();
 
         //THIS ONE WORKS FOR ALL PROFILES
         //grid.placeVehiclesOnGrid(vehicles);
