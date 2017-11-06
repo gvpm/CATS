@@ -5,7 +5,6 @@ import cats.gui.GUIOutputWindow;
 import cats.json.JsonInterface;
 import cats.tools.MessageConsole;
 
-
 /**
  * The console way to run the simulation.
  *
@@ -40,7 +39,7 @@ public class ConsoleAppLoader {
                     boolean GUI = false;
 
                     if (args.length == 1) {
-                        
+
                         if (GUI) {
                             guiRedirect();
                         }

@@ -17,8 +17,7 @@ import cats.log.handlers.VelLogHandler;
 import cats.models.ModelFactory;
 import cats.models.Model;
 import cats.tools.AcidCounter;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import cats.tools.Timer;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -54,6 +53,7 @@ public class Core {
     //This is a general FDP Uniform Provider.
     FDPProvider generalFDPUniform;
 
+    Timer timer;
 
     public Core(SimulationParameters parameters) {
         this.parameters = parameters;
@@ -103,6 +103,8 @@ public class Core {
     //Initializes the core.
     public void init() {
 
+        //New instance of the timer
+        timer = new Timer();
         //Creates the model to be applied in the cars, using a factory.
         ModelFactory modelFactory = new ModelFactory();
         model = modelFactory.fabricate(parameters.getModel());
@@ -126,8 +128,10 @@ public class Core {
      * @throws java.util.concurrent.ExecutionException
      */
     public void simulateAllDensities() throws InterruptedException, ExecutionException {
+        //Starts the timer
+        timer.start();
 
-        printSimulationInfo();
+        printBeginningSimulationInfo();
 
         float density = parameters.getInitialDensity();
         float deltaDensity = parameters.getDeltaDensity();
@@ -140,11 +144,13 @@ public class Core {
 
             density = density + deltaDensity;
         }
-        //End of simulation
-        System.out.println("-----------------------------------------------------------------------------------------");
-        System.out.println("Simulation Ended");
+        //Stops the timer
+        timer.stop();
+        //End of simulation  
 
         closeLoggers();
+
+        printEndingSimulationInfo();
 
     }
 
@@ -169,7 +175,6 @@ public class Core {
         //Here I reset the acidCounter counters to start this new density
         AcidLogHandler.Reset(parameters, acidCounter);
 
-
         int simulationTime = parameters.getSimulationTime();
         int statisticTime = parameters.getStatisticTime();
         int discardTime = parameters.getDiscardTime();
@@ -185,13 +190,12 @@ public class Core {
             iterate();
 
             AcidLogHandler.Measure(parameters, currentTime, discardTime, acidCounter);
-           
+
             //Logs a line on pictureLogger            
             PictureLogHandler.Log(parameters, grid, picLogger, roundD);
-             
+
             //Logs a line on velLogger
             VelLogHandler.CalculateAndLog(parameters, velLogger, roundD, currentTime, discardTime, this, mainDataExtractor);
-            
 
 //-------------------------------------------------------------        
 //---------------------MAIN LOG RELATED------------------------
@@ -238,20 +242,18 @@ public class Core {
         }
 
 //-----------------END OF DENSITY SIMULATION--------------------  
-
         //restart flow and averagevel sum counters
         mainDataExtractor.restartSumCounters();
         oneEachDensDataExtractor.restartSumCounters();
 
         //Calculates and logs all the Acids for this step using the AcidLogHandler
         AcidLogHandler.CalculateAndLog(parameters, acidCounter, acidLogger, vehicles, simulationTime, discardTime, roundD);
-       
+
         //Closes the picture mainLogger and converts to image
         PictureLogHandler.Close(parameters, picLogger, roundD);
-       
+
         //Closes the vel Logger
         VelLogHandler.Close(parameters, velLogger, roundD);
-
 
     }
 
@@ -352,7 +354,7 @@ public class Core {
         //rounds up density to 2 decimal cases
         float roundD = (float) (Math.round(d * 100.0) / 100.0);
         //number of cells that will be occupied in this density
-        int occupiedCells = (int) (parameters.getCellsInX()* parameters.getCellsInY() * roundD);
+        int occupiedCells = (int) (parameters.getCellsInX() * parameters.getCellsInY() * roundD);
         System.out.println("\n-----------------------------------------------------------------------------------------");
         System.out.println("Density: " + roundD + " Occupied Cells: " + occupiedCells + " out of " + parameters.getCellsInX());
         //will store here the number of cars in this density or each profile
@@ -394,7 +396,6 @@ public class Core {
 
         //set the cars neighbours
         //setNeighbours();
-
         //THIS ONE WORKS FOR ALL PROFILES
         //grid.placeVehiclesOnGrid(vehicles);
         //THIS ONLY WORKS FOR ONE PROFILE
@@ -447,7 +448,7 @@ public class Core {
         this.parameters = parameters;
     }
 
-    private void printSimulationInfo() {
+    private void printBeginningSimulationInfo() {
 
         float initD = (float) (Math.round(parameters.getInitialDensity() * 100.0) / 100.0);
         float finalD = (float) (Math.round(parameters.getFinalDensity() * 100.0) / 100.0);
@@ -467,6 +468,13 @@ public class Core {
             System.out.println(i + 1 + " - Profile: " + profiles.get(i).toString());
 
         }
+    }
+
+    private void printEndingSimulationInfo() {
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("Simulation Ended");
+        System.out.println("Total Simulation Time: " + timer.getMinutes() + " minutes and " + timer.getSeconds() + " seconds.");
+
     }
 
     public Model getModel() {

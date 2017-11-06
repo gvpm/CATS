@@ -14,7 +14,6 @@ import cats.file.loggers.PictureLogger;
  * @author gvpm
  */
 public class PictureLogHandler {
-    
 
     public static PictureLogger Create(SimulationParameters parameters, float roundD) {
         String roundDString = "" + roundD;
@@ -40,11 +39,10 @@ public class PictureLogHandler {
         String roundDString = "" + roundD;
         if (parameters.getPictureLog().contains(roundDString)) {
             picLogger.closeLogger();
-            
+
             //picLogger.convertToImage();
             //Deletes the big file
             //picLogger.deleteLog();
-
         }
     }
 

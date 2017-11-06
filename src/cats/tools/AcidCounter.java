@@ -225,6 +225,5 @@ public class AcidCounter {
         reset();
         return measures;
     }
-    
 
 }

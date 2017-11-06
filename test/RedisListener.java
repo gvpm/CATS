@@ -15,14 +15,13 @@ import redis.clients.jedis.JedisPubSub;
  * @author gvpm
  */
 public class RedisListener {
+
     public static void main(String args[]) {
         Jedis jedis = new Jedis("localhost");
-        
-        
-       
+
         String channel = "simular";
         System.out.println("Aguardando Configuração");
-        
+
         ExecutorService es = Executors.newFixedThreadPool(10);
 
         while (true) {
@@ -33,7 +32,7 @@ public class RedisListener {
                     System.out.println("Received message:" + message);
                     String jsonAll1;
                     JsonInterface runner = new JsonInterface(message);
-                    es.submit(runner);                    
+                    es.submit(runner);
                 }
 
                 @Override
@@ -51,7 +50,7 @@ public class RedisListener {
                 @Override
                 public void onPUnsubscribe(String pattern, int subscribedChannels) {
                 }
-                
+
                 @Override
                 public void onPSubscribe(String pattern, int subscribedChannels) {
                 }
@@ -59,5 +58,5 @@ public class RedisListener {
             }, channel);
         }
     }
-    
+
 }

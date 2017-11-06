@@ -177,7 +177,6 @@ public class CircularPictureLogViwer extends PApplet {
             }
             //System.out.println("TotalCars2"+CircularCars2.size() );
             for (int j = 0; j < CircularCars2.size(); j++) {
-               
 
                 if (CircularCars2.get(j).index == 2) {
                     fill(0);

@@ -71,7 +71,7 @@ public class RedisSubscriber {
                             System.out.println(s);
                         }
                         p.waitFor();
-                        System.out.println("Script exit value: "+p.exitValue());
+                        System.out.println("Script exit value: " + p.exitValue());
                         p.destroy();
 
                         System.out.println("\n-- Succes on running simulation script --\n");

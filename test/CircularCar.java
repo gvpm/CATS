@@ -9,7 +9,7 @@
  * @author gvpm
  */
 public class CircularCar {
-    
+
     int middle;
     int radius;
     int distanceToFront;
@@ -19,7 +19,7 @@ public class CircularCar {
         this.middle = middle;
         this.radius = radius;
         this.index = index;
-        
+
     }
 
     public int getMiddle() {
@@ -45,8 +45,5 @@ public class CircularCar {
     public void setDistanceToFront(int distanceToFront) {
         this.distanceToFront = distanceToFront;
     }
-    
-    
-    
-    
+
 }

@@ -2,6 +2,7 @@ package cats.interfaces;
 
 import cats.core.Core;
 import cats.tools.FileLoader;
+import cats.tools.Timer;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class FileInterface implements Callable<Integer> {
     public FileInterface(String fileName) {
         this.fileName = fileName;
         fileLoader = new FileLoader(fileName);
+
     }
 
     @Override
@@ -32,13 +34,8 @@ public class FileInterface implements Callable<Integer> {
             Core core = fileLoader.getCore();
 
             core.init();
-            long startTime = System.currentTimeMillis();
+
             core.simulateAllDensities();
-            long elapsedTime = System.currentTimeMillis() - startTime;
-            long secondsTotal = elapsedTime / 1000;
-            long minutes = secondsTotal / 60;
-            long secondsRest = secondsTotal % 60;
-            System.out.println("Total Simulation Time: " + minutes + " minutes and " + secondsRest + " seconds.");
 
         } catch (JsonGenerationException e) {
             System.out.println(e);

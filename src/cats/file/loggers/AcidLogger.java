@@ -39,9 +39,9 @@ public class AcidLogger {
         gravarArq.println((int) density + " " + acid1 + " " + acid2 + " " + acid3
                 + " " + nOfCars + " " + timeConsidered + " " + timeConsidered + " " + dangerousSituations
                 + " " + acidProbability + " " + probP + " " + normalizedAcidProbability + " "
-                + acid1Probability + " " + acid2Probability + " " + acid3Probability+ " " + 
-                acid1_vf2Probability+ " " + acid1_vf3Probability+ " " + acid1_vf4Probability+ " " + 
-                acid1_vf5Probability+ " " + acid1_vf6Probability+ " " + acid4Probability+ " " + acid5Probability);
+                + acid1Probability + " " + acid2Probability + " " + acid3Probability + " "
+                + acid1_vf2Probability + " " + acid1_vf3Probability + " " + acid1_vf4Probability + " "
+                + acid1_vf5Probability + " " + acid1_vf6Probability + " " + acid4Probability + " " + acid5Probability);
         gravarArq.flush();
 
     }
