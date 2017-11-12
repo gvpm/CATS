@@ -31,6 +31,7 @@ import java.util.concurrent.Future;
  *
  */
 public class Core {
+    int threadApplyCounter = 0;
 
     ArrayList<Vehicle> vehicles;
     ArrayList<Profile> profiles;
@@ -108,6 +109,7 @@ public class Core {
         //Creates the model to be applied in the cars, using a factory.
         ModelFactory modelFactory = new ModelFactory();
         model = modelFactory.fabricate(parameters.getModel());
+        System.out.println(model.toString());
 
         initializeDataExtractors();
 
@@ -265,14 +267,29 @@ public class Core {
      * @throws java.util.concurrent.ExecutionException
      */
     public void iterate() throws InterruptedException, ExecutionException {
-//NORMAL ITERARION, COMMENTED, USING THREADS NOW
-//        for (int currentTime = 0; currentTime < vehicles.size(); currentTime++) {
-//
-//            model.apply(vehicles.get(currentTime));
-//
-//        }
-//          update();
-        //Gets the number of processors available in the machine
+        
+        boolean multiThreaded = false;
+        
+        if (multiThreaded){
+            iterateMultiThread();
+        }else{
+            iterateSingleThread();
+        }
+
+    }
+    
+    public void iterateSingleThread(){
+        //NORMAL ITERARION, COMMENTED, USING THREADS NOW
+        for (int currentTime = 0; currentTime < vehicles.size(); currentTime++) {
+
+            model.apply(vehicles.get(currentTime));
+
+        }
+          update();
+    }
+    
+    public void iterateMultiThread() throws InterruptedException, ExecutionException{
+         //Gets the number of processors available in the machine
         int processors = Runtime.getRuntime().availableProcessors();
         //Creates an executor service to run threads.
         ExecutorService es = Executors.newFixedThreadPool(processors);
@@ -292,8 +309,9 @@ public class Core {
         //Closes the executor service
         es.shutdown();
         //Updates the grid
+        System.out.println("Cars Updated: "+ threadApplyCounter);
+        threadApplyCounter = 0;
         update();
-
     }
 
     /**
@@ -318,6 +336,7 @@ public class Core {
         for (int i = 0 + (partSize * (partNumber - 1)); i < end; i++) {
             //System.out.print(" " + currentTime);
             //applies the model to the current vehicle
+            threadApplyCounter++;
             model.apply(vehicles.get(i));
         }
 
