@@ -31,7 +31,8 @@ import java.util.concurrent.Future;
  *
  */
 public class Core {
-    int threadApplyCounter = 0;
+
+    int applyCounter = 0;
 
     ArrayList<Vehicle> vehicles;
     ArrayList<Profile> profiles;
@@ -267,36 +268,42 @@ public class Core {
      * @throws java.util.concurrent.ExecutionException
      */
     public void iterate() throws InterruptedException, ExecutionException {
-        
+
         boolean multiThreaded = false;
-        
-        if (multiThreaded){
+
+        if (multiThreaded) {
             iterateMultiThread();
-        }else{
+        } else {
             iterateSingleThread();
         }
 
     }
-    
-    public void iterateSingleThread(){
+
+    public void iterateSingleThread() {
         //NORMAL ITERARION, COMMENTED, USING THREADS NOW
+        applyCounter = 0;
         for (int currentTime = 0; currentTime < vehicles.size(); currentTime++) {
 
             model.apply(vehicles.get(currentTime));
+            applyCounter++;
 
         }
-          update();
+        //System.out.println("Cars Updated: " + applyCounter);
+        applyCounter = 0;
+        update();
     }
-    
-    public void iterateMultiThread() throws InterruptedException, ExecutionException{
-         //Gets the number of processors available in the machine
+
+    public void iterateMultiThread() throws InterruptedException, ExecutionException {
+        applyCounter = 0;
+        //Gets the number of processors available in the machine
         int processors = Runtime.getRuntime().availableProcessors();
         //Creates an executor service to run threads.
         ExecutorService es = Executors.newFixedThreadPool(processors);
         //An arrayList to store the tasks created
         ArrayList<Future<Integer>> tasks = new ArrayList<>();
         //Submits one thread per processor, dividing the vehicles in n(number of processors)groups
-        for (int i = 1; i <= processors; i++) {
+
+        for (int i = 0; i < processors; i++) {
             Future<Integer> task = es.submit(new IterationCallable(this, i, processors, "Part"));
             tasks.add(task);
         }
@@ -304,14 +311,61 @@ public class Core {
         //Uses .get() in all the tasks, because it blockes the current one until tasks are finished.
         for (int i = 0; i < tasks.size(); i++) {
             Integer result = tasks.get(i).get();
-
         }
         //Closes the executor service
         es.shutdown();
+
+        //System.out.println("Cars Updated: " + applyCounter);
+        
+        applyCounter = 0;
+        checkModelApplied();
         //Updates the grid
-        System.out.println("Cars Updated: "+ threadApplyCounter);
-        threadApplyCounter = 0;
         update();
+    }
+
+    private void checkModelApplied() {
+        for (int i = 0; i < vehicles.size(); i++) {
+            if (!vehicles.get(i).isModelApplied()) {
+                System.out.println("Veículo " + vehicles.get(i).getId() + " not updated.");
+            }
+
+        }
+    }
+
+    /**
+     * Using a given number of parts and a part number, it divides the vehicle
+     * in n parts and iterates the given part.
+     *
+     * @param partNumber number of the part
+     * @param lastPart index of lastPart
+     * @return
+     */
+    public int iteratePart(int partNumber, int lastPart, int[] beginnings) {
+
+        //list that contains the beginning index on the vehicles array for each part
+        int end, beginning;        
+        //case when its the last part
+        if (partNumber == lastPart) {
+            end = vehicles.size();
+        } else {
+            //the end of a part is the beginning of the next
+            end = beginnings[partNumber + 1];
+        }
+        
+        beginning = beginnings[partNumber];
+        
+        //System.out.println("Init: "+beginning+" End: "+ end);
+        int partCounter = 0;
+        //iterates from the begining of that part to the end of that part
+        for (int i = beginning; i < end; i++) {
+            //System.out.print(" " + currentTime);
+            //applies the model to the current vehicle
+            model.apply(vehicles.get(i));
+            applyCounter++;
+            partCounter++;
+        }
+        //System.out.println("Total in Part: " + partNumber + ": " + partCounter);
+        return partCounter;
     }
 
     /**
@@ -320,8 +374,9 @@ public class Core {
      *
      * @param partNumber number of the part
      * @param parts number of parts to divide the vehicles
+     * @return
      */
-    public void iteratePart(int partNumber, int parts) {
+    public int iteratePart(int partNumber, int parts) {
         //total number of vehicles
         int total = vehicles.size();
         //number of vehicles in each part
@@ -332,14 +387,17 @@ public class Core {
         if (partNumber == parts) {
             end = vehicles.size();
         }
+        int partCounter = 0;
         //iterates from the begining of that part to the end of that part
         for (int i = 0 + (partSize * (partNumber - 1)); i < end; i++) {
             //System.out.print(" " + currentTime);
             //applies the model to the current vehicle
-            threadApplyCounter++;
+            applyCounter++;
+            partCounter++;
             model.apply(vehicles.get(i));
         }
-
+        //System.out.println("Total in Part: " + partNumber + ": " + partCounter);
+        return partCounter;
     }
 
     /**

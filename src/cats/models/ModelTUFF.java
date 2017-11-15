@@ -30,7 +30,7 @@ public class ModelTUFF extends Model {
     float roundAlphaAcc;
     float roundAlphaAnt;
     
-    boolean print = true;
+    boolean print = false;
     
 
     @Override

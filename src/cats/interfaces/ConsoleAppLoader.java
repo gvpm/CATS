@@ -16,7 +16,9 @@ public class ConsoleAppLoader {
 
     public static void main(String[] args) {
         if (args.length == 0) {
-            helpMenu();
+            FileInterface fileRunner = new FileInterface("simulation.txt");
+            fileRunner.call();
+            //helpMenu();
         } else {
 
             switch (args[0]) {

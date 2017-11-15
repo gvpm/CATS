@@ -28,6 +28,7 @@ public class Vehicle {
     int oldDistanceToFront;
     int frontId;
     int oldFrontId;
+    boolean modelApplied;
 
     Vehicle frontNeighbour;
     Vehicle backNeighbour;
@@ -163,6 +164,7 @@ public class Vehicle {
 
     public void setNewVelocity(int newVelocity) {
         this.newVelocity = newVelocity;
+        modelApplied = true;
     }
 
     public int getOldVelocity() {
@@ -210,7 +212,7 @@ public class Vehicle {
 //        if(getId()==4 && newGridXPosition!=gridXPosition){
 //            System.out.print(" "+ gridXPosition);
 //        }
-
+        modelApplied = false;
         oldGridXPosition = gridXPosition;
         oldGridYPosition = gridYPosition;
         gridXPosition = newGridXPosition;
@@ -268,6 +270,10 @@ public class Vehicle {
 
     public void setOldFrontId(int oldFrontId) {
         this.oldFrontId = oldFrontId;
+    }
+    
+    public boolean isModelApplied(){
+        return modelApplied;
     }
 
 }
