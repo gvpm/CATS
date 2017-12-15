@@ -87,7 +87,98 @@ public class AcidLogHandler {
                     roundNormalizedAcidProbability, roundAcid1Probability, roundAcid2Probability, roundAcid3Probability,
                     roundAcid1_vf2Probability, roundAcid1_vf3Probability, roundAcid1_vf4Probability, roundAcid1_vf5Probability,
                     roundAcid1_vf6Probability, roundAcid4Probability, roundAcid5Probability);
+            
+            
         }
+        
+    }
+        public static void CalculateAndLogFiltered(SimulationParameters parameters, AcidCounter acid, AcidLogger acidLogger, ArrayList<Vehicle> vehicles, int simulationTime, int discardTime, float roundD) {
+        if (parameters.getAcidLog() == 1) {
+            
+            
+            float density; 
+            int nOfCars;
+
+
+            DecimalFormat df = new DecimalFormat("#0.000000");
+//When the density is created I will log a line in the acidlog
+            int[] acidMeasures = acid.getMeasuresFiltered();
+            //Do more math and put more infor in this line
+            int timeConsidered = simulationTime - discardTime;
+
+
+
+            double acid1Probability = ((double) acidMeasures[0] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1Probability = df.format(acid1Probability);
+            
+            
+            double acid1_vf2Probability = ((double) acidMeasures[1] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_vf2Probability = df.format(acid1_vf2Probability);
+
+            double acid1_vf3Probability = ((double) acidMeasures[2] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_vf3Probability = df.format(acid1_vf3Probability);
+
+            double acid1_vf4Probability = ((double) acidMeasures[3] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_vf4Probability = df.format(acid1_vf4Probability);
+
+            double acid1_vf5Probability = ((double) acidMeasures[4] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_vf5Probability = df.format(acid1_vf5Probability);
+            
+            
+            
+            double acid1_vbf5Probability = ((double) acidMeasures[5] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_vbf5Probability = df.format(acid1_vbf5Probability);
+            
+            
+            double acid1_deceleration1CellProbability = ((double) acidMeasures[6] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_deceleration1CellProbability = df.format(acid1_deceleration1CellProbability);
+            
+            double acid1_deceleration2CellProbability = ((double) acidMeasures[7] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_deceleration2CellProbability = df.format(acid1_deceleration2CellProbability);
+            
+            double acid1_deceleration3CellProbability = ((double) acidMeasures[8] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_deceleration3CellProbability = df.format(acid1_deceleration3CellProbability);
+            
+            double acid1_deceleration4CellProbability = ((double) acidMeasures[9] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_deceleration4CellProbability = df.format(acid1_deceleration4CellProbability);
+            
+            double acid1_deceleration5CellProbability = ((double) acidMeasures[10] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_deceleration5CellProbability = df.format(acid1_deceleration5CellProbability);
+            
+            double acid1_deceleration6CellProbability = ((double) acidMeasures[11] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid1_deceleration6CellProbability = df.format(acid1_deceleration6CellProbability);
+            
+
+            double acid2Probability = ((double) acidMeasures[12] / (double) vehicles.size()) / (double) timeConsidered;
+            String roundAcid2Probability = df.format(acid2Probability);
+
+
+
+
+
+
+
+            acidLogger.logALineFiltered(roundD * 100, 
+                    vehicles.size(),
+                    timeConsidered,
+                    roundAcid1Probability,
+                    roundAcid1_vf2Probability,
+                    roundAcid1_vf3Probability,
+                    roundAcid1_vf4Probability,
+                    roundAcid1_vf5Probability,
+                    roundAcid1_vbf5Probability,
+                    roundAcid1_deceleration1CellProbability,
+                    roundAcid1_deceleration2CellProbability,
+                    roundAcid1_deceleration3CellProbability,
+                    roundAcid1_deceleration4CellProbability,
+                    roundAcid1_deceleration5CellProbability,
+                    roundAcid1_deceleration6CellProbability,
+                    roundAcid2Probability
+                    );
+            
+            
+        }
+        
     }
 
 }

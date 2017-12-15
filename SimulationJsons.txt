@@ -1,13 +1,25 @@
 //a10b30p30 OneLineJson
+
 {"simulationParameters":{"speedLimit":25,"probP":30,"simulationTime":15000,"discardTime":10000,"statisticTime":121,"initialDensity":0.01,"deltaDensity":0.01,"finalDensity":0.9,"cellsInX":10000,"cellsInY":1,"cellSize":1.5,"defaultCarSize":7.5,"model":"naschWithBeta","logName":"a10b30p30","pictureLog":"0","acidLog":1,"velLog":"0"},"profiles":[{"fdpProviderString":"beta","name":"NaschBasic","size":5,"velMax":25,"ahead":0,"safeDistance":0,"velIncrement":5,"percentageOccurrence":1,"alphaAcc":10,"betaAcc":30,"alphaAnt":10,"betaAnt":30}]}
+
 //a30b10p30 OneLineJson
+
 {"simulationParameters":{"speedLimit":25,"probP":30,"simulationTime":15000,"discardTime":10000,"statisticTime":121,"initialDensity":0.01,"deltaDensity":0.01,"finalDensity":0.9,"cellsInX":10000,"cellsInY":1,"cellSize":1.5,"defaultCarSize":7.5,"model":"naschWithBeta","logName":"a30b10p30","pictureLog":"0","acidLog":1,"velLog":"0"},"profiles":[{"fdpProviderString":"beta","name":"NaschBasic","size":5,"velMax":25,"ahead":0,"safeDistance":0,"velIncrement":5,"percentageOccurrence":1,"alphaAcc":30,"betaAcc":10,"alphaAnt":30,"betaAnt":10}]}
+
 //a20b28p30 OneLineJson
+
 {"simulationParameters":{"speedLimit":25,"probP":30,"simulationTime":15000,"discardTime":10000,"statisticTime":121,"initialDensity":0.01,"deltaDensity":0.01,"finalDensity":0.9,"cellsInX":10000,"cellsInY":1,"cellSize":1.5,"defaultCarSize":7.5,"model":"naschWithBeta","logName":"a20b28p30","pictureLog":"0","acidLog":1,"velLog":"0"},"profiles":[{"fdpProviderString":"beta","name":"NaschBasic","size":5,"velMax":25,"ahead":0,"safeDistance":0,"velIncrement":5,"percentageOccurrence":1,"alphaAcc":20,"betaAcc":28,"alphaAnt":20,"betaAnt":28}]}
+
 //a28b20p30 OneLineJson
+
 {"simulationParameters":{"speedLimit":25,"probP":30,"simulationTime":15000,"discardTime":10000,"statisticTime":121,"initialDensity":0.01,"deltaDensity":0.01,"finalDensity":0.9,"cellsInX":10000,"cellsInY":1,"cellSize":1.5,"defaultCarSize":7.5,"model":"naschWithBeta","logName":"a28b20p30","pictureLog":"0","acidLog":1,"velLog":"0"},"profiles":[{"fdpProviderString":"beta","name":"NaschBasic","size":5,"velMax":25,"ahead":0,"safeDistance":0,"velIncrement":5,"percentageOccurrence":1,"alphaAcc":28,"betaAcc":20,"alphaAnt":28,"betaAnt":20}]}
+
 //NaschBasic OneLineJson
+
 {"simulationParameters":{"speedLimit":25,"probP":30,"simulationTime":15000,"discardTime":10000,"statisticTime":121,"initialDensity":0.01,"deltaDensity":0.01,"finalDensity":0.9,"cellsInX":10000,"cellsInY":1,"cellSize":1.5,"defaultCarSize":7.5,"model":"nasch","logName":"naschp30","pictureLog":"0","acidLog":1,"velLog":"0"},"profiles":[{"fdpProviderString":"uniform","name":"NaschBasic","size":5,"velMax":25,"ahead":0,"safeDistance":0,"velIncrement":5,"percentageOccurrence":1,"alphaAcc":8,"betaAcc":4,"alphaAnt":8,"betaAnt":4}]}
+
+
+
 
 
 Redis Publisher Comands.

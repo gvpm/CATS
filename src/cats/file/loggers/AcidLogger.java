@@ -45,6 +45,46 @@ public class AcidLogger {
         gravarArq.flush();
 
     }
+        public void logALineFiltered(
+            float density, 
+            int nOfCars, 
+            int timeConsidered,
+            String acid1_vFront1Probability,
+            String acid1_vFront2Probability, 
+            String acid1_vFront3Probability, 
+            String acid1_vFront4Probability,
+            String acid1_vFront5Probability,  
+            String acid1_vBackFront5Probability,
+            String acid1_deceleration1CellProbability,
+            String acid1_deceleration2CellProbability,
+            String acid1_deceleration3CellProbability,
+            String acid1_deceleration4CellProbability,
+            String acid1_deceleration5CellProbability,
+            String acid1_deceleration6CellProbability,
+            String acid2Probability
+            )
+        {
+        gravarArq.println(
+                (int) density + " " +
+                nOfCars + " " + 
+                timeConsidered + " " + 
+                acid1_vFront1Probability + " " + 
+                acid1_vFront2Probability + " " + 
+                acid1_vFront4Probability + " " + 
+                acid1_vFront3Probability + " " + 
+                acid1_vFront5Probability + " " + 
+                acid1_vBackFront5Probability + " " + 
+                acid1_deceleration1CellProbability + " " + 
+                acid1_deceleration2CellProbability + " " + 
+                acid1_deceleration3CellProbability + " " + 
+                acid1_deceleration4CellProbability + " " + 
+                acid1_deceleration5CellProbability + " " + 
+                acid1_deceleration6CellProbability + " " +  
+                acid2Probability
+        );
+        gravarArq.flush();
+
+    }
 
     public void closeLogger() {
         gravarArq.close();

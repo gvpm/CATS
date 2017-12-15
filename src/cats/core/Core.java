@@ -250,7 +250,8 @@ public class Core {
         oneEachDensDataExtractor.restartSumCounters();
 
         //Calculates and logs all the Acids for this step using the AcidLogHandler
-        AcidLogHandler.CalculateAndLog(parameters, acidCounter, acidLogger, vehicles, simulationTime, discardTime, roundD);
+        //AcidLogHandler.CalculateAndLog(parameters, acidCounter, acidLogger, vehicles, simulationTime, discardTime, roundD);
+        AcidLogHandler.CalculateAndLogFiltered(parameters, acidCounter, acidLogger, vehicles, simulationTime, discardTime, roundD);
 
         //Closes the picture mainLogger and converts to image
         PictureLogHandler.Close(parameters, picLogger, roundD);
@@ -269,7 +270,7 @@ public class Core {
      */
     public void iterate() throws InterruptedException, ExecutionException {
 
-        boolean multiThreaded = false;
+        boolean multiThreaded = true;
 
         if (multiThreaded) {
             iterateMultiThread();
